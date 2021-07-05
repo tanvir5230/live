@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:live/screens/authenticate/login.dart';
-import 'package:live/screens/authenticate/signup.dart';
+import 'package:live/screens/authenticate/login/loginPage.dart';
+import 'package:live/screens/authenticate/signup/signupPage.dart';
 
 class AuthenticationPage extends StatefulWidget {
   const AuthenticationPage({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return !showSignup
+    return showSignup
         ? LoginPage(
             toggleView: this.toggleView,
           )

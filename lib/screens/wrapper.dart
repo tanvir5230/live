@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:live/screens/authenticate/authentication.dart';
-import 'package:live/screens/home/home.dart';
+import 'package:live/screens/authenticate/renderAuthPage.dart';
+//import 'package:live/screens/home/home.dart';
 
 class Wrapper extends StatelessWidget {
   const Wrapper({Key? key}) : super(key: key);

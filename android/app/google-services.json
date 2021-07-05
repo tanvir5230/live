@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "187776216844",
+    "project_id": "live-30016",
+    "storage_bucket": "live-30016.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:187776216844:android:5814f06e1f06ef582da329",
+        "android_client_info": {
+          "package_name": "com.example.live"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "187776216844-fonr7dulqlijeb0fqe8oo04uts8uk05a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCENixmRBIMtP8KNpQ2GnpEAYPm53-55Mk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "187776216844-fonr7dulqlijeb0fqe8oo04uts8uk05a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

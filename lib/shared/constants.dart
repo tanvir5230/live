@@ -15,6 +15,7 @@ const cbuttonTextColor = 0xFF000000;
 
 //button style
 final cbuttonStyle = ElevatedButton.styleFrom(
+    padding: EdgeInsets.symmetric(vertical: 23.0),
     primary: Color(cborderColor),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)));
 //button text style
