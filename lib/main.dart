@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:live/screens/wrapper.dart';
 
 void main() {
   runApp(const App());
@@ -11,7 +12,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '@live',
-      home: Text('hello'),
+      home: Wrapper(),
     );
   }
 }
