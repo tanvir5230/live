@@ -12,15 +12,9 @@ class Loading extends StatelessWidget {
       height: double.infinity,
       color: Color(formBgColor),
       child: Center(
-        child: Text(
-          'loading...',
-          style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 3,
-              fontSize: 30),
-        ),
-      ),
+          child: CircularProgressIndicator(
+        color: Colors.white,
+      )),
     );
   }
 }
