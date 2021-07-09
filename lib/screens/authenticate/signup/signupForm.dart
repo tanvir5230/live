@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:live/screens/authenticate/Languages.dart';
 import 'package:live/screens/authenticate/validators.dart';
+import 'package:live/services/authenticationService.dart';
 import 'package:live/shared/constants.dart';
 
 class RenderSignUpForm extends StatefulWidget {
@@ -24,10 +25,21 @@ class _RenderSignUpFormState extends State<RenderSignUpForm> {
   var _currentSelectedLanguage;
   var img;
 
-  void submitReg() {
+  String error = '';
+
+  void submitReg() async {
     if (_formKey.currentState!.validate()) {
-      print('$name $phone $email $password ');
-      _formKey.currentState!.reset();
+      final result = await AuthService().signUp(email, password);
+      if (result['user'] == null) {
+        setState(() {
+          error = result['error'].code;
+        });
+      } else {
+        setState(() {
+          error = '';
+        });
+        _formKey.currentState!.reset();
+      }
     } else {
       print('form is not validated.');
     }
@@ -44,7 +56,7 @@ class _RenderSignUpFormState extends State<RenderSignUpForm> {
           ),
           TextFormField(
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            autofocus: true,
+            autofocus: false,
             textCapitalization: TextCapitalization.words,
             validator: (value) {
               return nameValidator(value!);
@@ -206,6 +218,13 @@ class _RenderSignUpFormState extends State<RenderSignUpForm> {
                   },
                   style: cbuttonStyle,
                   child: cbuttonTextStyle('sign up'))),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 20),
+            child: Text(
+              error,
+              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+            ),
+          ),
           SizedBox(height: 20.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

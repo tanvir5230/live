@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:live/screens/authenticate/validators.dart';
+import 'package:live/services/authenticationService.dart';
 import 'package:live/shared/constants.dart';
 
 //Login form
@@ -20,14 +21,26 @@ class _RenderLoginFormState extends State<RenderLoginForm> {
   String email = '';
   String password = '';
 
+  String error = "";
+
 //login form submit function
-  void submit() {
+  void submit() async {
     if (_formKey.currentState!.validate()) {
-      print(
-          "email is $email and pass is $password and checked box is $isChecked");
-      _formKey.currentState!.reset();
+      //result will contain a Map having two props name user and error
+      final result = await AuthService().signIn(email, password);
+      if (result['user'] == null) {
+        setState(() {
+          error = result['error'].code;
+        });
+      } else {
+        setState(() {
+          error = '';
+        });
+
+        _formKey.currentState!.reset();
+      }
     } else {
-      print("not validated");
+      return;
     }
   }
 
@@ -52,7 +65,7 @@ class _RenderLoginFormState extends State<RenderLoginForm> {
             SizedBox(height: 30),
             TextFormField(
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              autofocus: true,
+              autofocus: false,
               validator: (value) {
                 return emailValidator(value!);
               },
@@ -101,6 +114,11 @@ class _RenderLoginFormState extends State<RenderLoginForm> {
                     child: cbuttonTextStyle('log in'))),
             SizedBox(
               height: 20.0,
+            ),
+            Text(
+              error,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
