@@ -4,7 +4,7 @@ List companies = <Map>[
     "city": "Dhaka",
     "developer": 'dev1',
     "agency": 'ag1',
-    "agent": "agent1",
+    "agent": 'agent1',
     "brandLogo":
         'https://images.pexels.com/photos/170809/pexels-photo-170809.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
     "brandName": "brand1"
@@ -130,3 +130,11 @@ List companies = <Map>[
     "brandName": "brand12"
   }
 ];
+
+Future<List> comData() async {
+  List data = [];
+  await Future.delayed(Duration(milliseconds: 500), () {
+    data = companies;
+  });
+  return data;
+}
