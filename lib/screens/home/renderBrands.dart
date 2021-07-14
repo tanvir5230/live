@@ -71,14 +71,44 @@ class _RenderBrandsState extends State<RenderBrands> {
               void filterByCity(List companyList) {
                 List filteredBrandByCity = companies
                     .where((element) =>
-                        element['country'].toString().toLowerCase() ==
-                        widget.selectedCountry.toLowerCase())
+                        element['city'].toString().toLowerCase() ==
+                        widget.selectedCity.toLowerCase())
                     .toList();
                 companies = filteredBrandByCity;
               }
 
+              void filterBydevelopers(List companyList) {
+                List filteredBrandByDevelopers = companies
+                    .where((element) =>
+                        element['developer'].toString().toLowerCase() ==
+                        widget.selectedDeveloper.toLowerCase())
+                    .toList();
+                companies = filteredBrandByDevelopers;
+              }
+
+              void filterByAgent(List companyList) {
+                List filteredBrandByAgent = companies
+                    .where((element) =>
+                        element['agent'].toString().toLowerCase() ==
+                        widget.selectedAgent.toLowerCase())
+                    .toList();
+                companies = filteredBrandByAgent;
+              }
+
+              void filterByAgencies(List companyList) {
+                List filteredBrandByAgencies = companies
+                    .where((element) =>
+                        element['agency'].toString().toLowerCase() ==
+                        widget.selectedAgency.toLowerCase())
+                    .toList();
+                companies = filteredBrandByAgencies;
+              }
+
               if (widget.coutryFilterEnabled) filterByCountry(companies);
               if (widget.cityFilterEnabled) filterByCity(companies);
+              if (widget.developerFilterEnabled) filterBydevelopers(companies);
+              if (widget.agentFilterEnabled) filterByAgent(companies);
+              if (widget.agencyFilterEnabled) filterByAgencies(companies);
 
               return ListView.builder(
                   itemCount: getFilteredList(companies).length > 0

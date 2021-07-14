@@ -76,6 +76,7 @@ class _HomeState extends State<Home> {
       selectedCityName = value;
       enabledCityFilter = !enabledCityFilter;
     });
+    print(selectedCityName);
   }
 
   void cancelCitytyFilter() {
