@@ -16,47 +16,46 @@ class _InfoPageState extends State<InfoPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return SingleChildScrollView(
-      child: Container(
-          height: size.height,
-          width: size.width,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(.1), BlendMode.darken),
-              fit: BoxFit.cover,
-              image: AssetImage(
-                'assets/images/background1.jpeg',
-              ),
-            ),
+    return Container(
+      height: size.height,
+      width: size.width,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          colorFilter:
+              ColorFilter.mode(Colors.black.withOpacity(.1), BlendMode.darken),
+          fit: BoxFit.cover,
+          image: AssetImage(
+            'assets/images/background1.png',
           ),
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              menu(),
-              Column(
+        ),
+      ),
+      child: SafeArea(
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Positioned(
+              top: 10,
+              left: 10,
+              child: Menu(),
+            ),
+            SingleChildScrollView(
+              child: Column(
                 children: <Widget>[
                   logo(size),
                   renderInfoHeaders(size),
                   menuContainer(size),
-                  footer(size),
                 ],
               ),
-              Positioned(
-                child: Container(
-                  padding: EdgeInsets.zero,
-                  color: Colors.white.withOpacity(.9),
-                  child: Icon(
-                    Icons.qr_code_2_outlined,
-                    size: 40,
-                    color: Colors.black,
-                  ),
-                ),
-                bottom: 80,
-                left: size.width * .45,
-              )
-            ],
-          )),
+            ),
+            Positioned(
+              child: footer(),
+              bottom: 5,
+              left: 0,
+              right: 0,
+            )
+          ],
+        ),
+      ),
     );
   }
 }

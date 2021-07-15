@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-Widget footer(size) {
+Widget footer() {
   return Container(
-    height: size.height * .15 - 20,
+    padding: EdgeInsets.symmetric(horizontal: 10),
     width: double.infinity,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -13,7 +13,21 @@ Widget footer(size) {
         ),
         Flexible(
           flex: 6,
-          child: socialButtons(),
+          child: Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.bottomCenter,
+            children: [
+              socialButtons(),
+              Positioned(
+                bottom: 40,
+                child: Icon(
+                  Icons.qr_code_2_outlined,
+                  size: 50,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
         ),
         Flexible(
           flex: 2,
@@ -26,6 +40,7 @@ Widget footer(size) {
 
 Widget leftButtons() {
   return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
     children: [
       cDivider(),
       cTextButton('scale'),
@@ -36,32 +51,6 @@ Widget leftButtons() {
   );
 }
 
-Widget cDivider() {
-  return SizedBox(
-    width: 50,
-    height: 2,
-    child: Divider(
-      thickness: 4,
-      color: Colors.white,
-      // indent: 20,
-      // endIndent: 20,
-    ),
-  );
-}
-
-Widget cTextButton(String text) {
-  return TextButton(
-    onPressed: () {},
-    style: TextButton.styleFrom(
-      padding: EdgeInsets.zero,
-    ),
-    child: Text(
-      text.toUpperCase(),
-      style: TextStyle(color: Colors.white),
-    ),
-  );
-}
-
 Widget socialButtons() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -69,19 +58,19 @@ Widget socialButtons() {
     children: [
       IconButton(
         onPressed: () {},
-        icon: Icon(Icons.facebook),
+        icon: Image.asset('assets/images/facebook.png'),
       ),
       IconButton(
         onPressed: () {},
-        icon: Icon(Icons.youtube_searched_for),
+        icon: Image.asset('assets/images/youtube.png'),
       ),
       IconButton(
         onPressed: () {},
-        icon: Icon(Icons.facebook),
+        icon: Image.asset('assets/images/twitter.png'),
       ),
       IconButton(
         onPressed: () {},
-        icon: Icon(Icons.facebook),
+        icon: Image.asset('assets/images/instagram.png'),
       ),
     ],
   );
@@ -89,6 +78,7 @@ Widget socialButtons() {
 
 Widget rightButtons() {
   return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
     children: [
       cDivider(),
       cTextButton('reset'),
@@ -96,5 +86,36 @@ Widget rightButtons() {
       cTextButton('hide'),
       cDivider(),
     ],
+  );
+}
+
+Widget cTextButton(String text) {
+  return SizedBox(
+    height: 35,
+    child: TextButton(
+      onPressed: () {},
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.zero,
+      ),
+      child: Text(
+        text.toUpperCase(),
+        style: TextStyle(
+            color: Colors.white,
+            letterSpacing: 1.5,
+            fontSize: 16,
+            fontWeight: FontWeight.bold),
+      ),
+    ),
+  );
+}
+
+Widget cDivider() {
+  return SizedBox(
+    width: 80,
+    height: 0,
+    child: Divider(
+      thickness: 4,
+      color: Colors.white,
+    ),
   );
 }

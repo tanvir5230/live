@@ -1,10 +1,7 @@
-import 'dart:math';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:live/screens/infoPage/infoPage.dart';
-import 'package:live/screens/wrapper.dart';
-import 'package:outline_gradient_button/outline_gradient_button.dart';
+//import 'package:live/screens/wrapper.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

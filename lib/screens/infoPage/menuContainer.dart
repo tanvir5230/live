@@ -4,21 +4,28 @@ import 'package:flutter/material.dart';
 import 'package:outline_gradient_button/outline_gradient_button.dart';
 
 Widget menuContainer(size) {
-  return Container(
-    width: size.width,
-    height: size.height * .55,
-    child: Row(
-      children: [
-        renderMenuContainer(sideName: "left", angle: 1),
-        Flexible(
-          flex: 30,
-          child: Container(
-              //color: Colors.purple,
-              ),
+  return Stack(
+    clipBehavior: Clip.none,
+    children: [
+      manInTheMiddle(),
+      Container(
+        //color: Colors.red,
+        width: size.width,
+        height: size.height * .55,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            renderMenuContainer(sideName: "left", angle: 1),
+            Flexible(
+              flex: 30,
+              child: Container(),
+            ),
+            renderMenuContainer(sideName: 'right', angle: -1),
+          ],
         ),
-        renderMenuContainer(sideName: 'right', angle: -1),
-      ],
-    ),
+      ),
+    ],
   );
 }
 
@@ -43,7 +50,7 @@ Widget renderMenuContainer({required String sideName, required int angle}) {
 Widget menuButton(
     {required String menuSide, required String menuName, required int angle}) {
   return Padding(
-    padding: const EdgeInsets.only(bottom: 10.0),
+    padding: const EdgeInsets.only(bottom: 6.0),
     child: Transform(
       transform: menuSide == 'left'
           ? Matrix4.rotationZ(angle / 180 * pi)
@@ -52,9 +59,20 @@ Widget menuButton(
       child: Stack(
         clipBehavior: Clip.none,
         children: [
+          Positioned(
+            right: menuSide == 'left' ? -4 : null,
+            left: menuSide == 'right' ? -4 : null,
+            top: 16,
+            height: 10,
+            child: Icon(
+              Icons.circle,
+              color: Colors.white,
+              size: 10,
+            ),
+          ),
           Container(
             width: double.infinity,
-            height: 35,
+            height: 40,
             child: OutlineGradientButton(
               onTap: () {},
               child: Center(
@@ -78,18 +96,22 @@ Widget menuButton(
               strokeWidth: 2,
             ),
           ),
-          Positioned(
-            right: menuSide == 'left' ? -4 : null,
-            left: menuSide == 'right' ? -4 : null,
-            top: 14,
-            height: 10,
-            child: Icon(
-              Icons.circle,
-              color: Colors.white,
-              size: 10,
-            ),
-          ),
         ],
+      ),
+    ),
+  );
+}
+
+Widget manInTheMiddle() {
+  return Positioned(
+    child: Transform.translate(
+      offset: Offset(-10, -10),
+      child: Container(
+        height: 350,
+        decoration: BoxDecoration(
+          //color: Colors.yellow,
+          image: DecorationImage(image: AssetImage('assets/images/man.png')),
+        ),
       ),
     ),
   );

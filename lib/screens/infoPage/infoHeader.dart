@@ -4,7 +4,7 @@ Widget renderInfoHeaders(size) {
   return Padding(
     padding: const EdgeInsets.all(10.0),
     child: SizedBox(
-      height: size.height * .15,
+      height: 120,
       width: 170,
       child: Column(
         children: <Widget>[
