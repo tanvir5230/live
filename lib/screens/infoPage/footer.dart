@@ -1,41 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:live/provider/companyInfoProvider.dart';
+import 'package:provider/provider.dart';
 
-Widget footer() {
-  return Container(
-    padding: EdgeInsets.symmetric(horizontal: 10),
-    width: double.infinity,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Flexible(
-          flex: 2,
-          child: leftButtons(),
-        ),
-        Flexible(
-          flex: 6,
-          child: Stack(
-            clipBehavior: Clip.none,
-            alignment: Alignment.bottomCenter,
-            children: [
-              socialButtons(),
-              Positioned(
-                bottom: 40,
-                child: Icon(
-                  Icons.qr_code_2_outlined,
-                  size: 50,
-                  color: Colors.white,
-                ),
-              ),
-            ],
+class Footer extends StatelessWidget {
+  const Footer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      width: double.infinity,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Flexible(
+            flex: 2,
+            child: leftButtons(),
           ),
-        ),
-        Flexible(
-          flex: 2,
-          child: rightButtons(),
-        ),
-      ],
-    ),
-  );
+          Flexible(
+            flex: 6,
+            child: Stack(
+              clipBehavior: Clip.none,
+              alignment: Alignment.bottomCenter,
+              children: [
+                socialButtons(),
+                Positioned(
+                  bottom: 40,
+                  child: Icon(
+                    Icons.qr_code_2_outlined,
+                    size: 50,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Flexible(
+            flex: 2,
+            child: rightButtons(),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 Widget leftButtons() {
@@ -43,9 +50,9 @@ Widget leftButtons() {
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       cDivider(),
-      cTextButton('scale'),
+      CtextButton('scale'),
       cDivider(),
-      cTextButton('back'),
+      CtextButton('back'),
       cDivider(),
     ],
   );
@@ -81,32 +88,47 @@ Widget rightButtons() {
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       cDivider(),
-      cTextButton('reset'),
+      CtextButton('reset'),
       cDivider(),
-      cTextButton('hide'),
+      CtextButton('hide'),
       cDivider(),
     ],
   );
 }
 
-Widget cTextButton(String text) {
-  return SizedBox(
-    height: 35,
-    child: TextButton(
-      onPressed: () {},
-      style: TextButton.styleFrom(
-        padding: EdgeInsets.zero,
+class CtextButton extends StatelessWidget {
+  final String text;
+  const CtextButton(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 35,
+      child: Consumer<CompanyInfoProvider>(
+        builder: (context, provider, child) => TextButton(
+          onPressed: () {
+            if (text == 'back') {
+              Navigator.pop(context);
+            }
+            if (text == 'reset') {
+              provider.reset();
+            }
+          },
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.zero,
+          ),
+          child: Text(
+            text.toUpperCase(),
+            style: TextStyle(
+                color: Colors.white,
+                letterSpacing: 1.5,
+                fontSize: 16,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
       ),
-      child: Text(
-        text.toUpperCase(),
-        style: TextStyle(
-            color: Colors.white,
-            letterSpacing: 1.5,
-            fontSize: 16,
-            fontWeight: FontWeight.bold),
-      ),
-    ),
-  );
+    );
+  }
 }
 
 Widget cDivider() {

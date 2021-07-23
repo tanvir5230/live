@@ -13,7 +13,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  //this will all dropdown item for filter section such as countries, cities etc. after getting comapny data from firebase
+  //this will all dropdown item for filter section such as countries, cities etc. after getting company data from firebase
   Set allCountries = {};
   Set allCities = {};
   Set allDevelopers = {};
@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
     });
   }
 
-  //this is for search textfield
+  //this is for search text field
   String searchedBrandName = '';
   void brandSearch(String value) {
     setState(() {
@@ -79,7 +79,7 @@ class _HomeState extends State<Home> {
     print(selectedCityName);
   }
 
-  void cancelCitytyFilter() {
+  void cancelCityFilter() {
     setState(() {
       enabledCityFilter = false;
     });
@@ -168,7 +168,7 @@ class _HomeState extends State<Home> {
                         cancelCountryFilter,
                         enabledCityFilter,
                         citySearch,
-                        cancelCitytyFilter,
+                        cancelCityFilter,
                         enabledDevelopersFilter,
                         developersSearch,
                         cancelDevelopersFilter,
