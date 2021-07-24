@@ -13,15 +13,21 @@ Widget factSheetButtonLeft(String title, String value) {
           children: [
             Text(
               title.toUpperCase(),
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
+                fontSize: 11,
+                letterSpacing: 1.5,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
               value.toLowerCase(),
+              textAlign: TextAlign.center,
               style: TextStyle(
+                letterSpacing: 1.5,
                 color: Colors.white.withOpacity(.8),
+                fontSize: 10,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -52,15 +58,21 @@ Widget factSheetButtonRight(String title, String value) {
           children: [
             Text(
               title.toUpperCase(),
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
+                fontSize: 11,
+                letterSpacing: 1.5,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
               value.toLowerCase(),
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white.withOpacity(.8),
+                fontSize: 10,
+                letterSpacing: 1.5,
                 fontWeight: FontWeight.bold,
               ),
             ),

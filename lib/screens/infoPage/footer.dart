@@ -10,6 +10,7 @@ class Footer extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10),
       width: double.infinity,
+      height: 85,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [

@@ -34,7 +34,7 @@ Widget propertyHeading() {
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize: 14,
                   letterSpacing: 2,
                 ),
                 textAlign: TextAlign.center,
@@ -48,7 +48,7 @@ Widget propertyHeading() {
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                  fontSize: 14,
                   letterSpacing: 2,
                 ),
                 textAlign: TextAlign.center,

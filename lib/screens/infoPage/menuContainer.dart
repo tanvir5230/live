@@ -18,10 +18,8 @@ class MenuContainer extends StatelessWidget {
         Consumer<CompanyInfoProvider>(
           builder: (context, provider, child) {
             return Container(
-              //color: Colors.red,
               width: double.infinity,
-              height: MediaQuery.of(context).size.height -
-                  (provider.sizeController + provider.sizeController / 2),
+              height: MediaQuery.of(context).size.height - 270,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,7 +29,10 @@ class MenuContainer extends StatelessWidget {
                     flex: 30,
                     child: Container(),
                   ),
-                  MenuContainerRight(),
+                  Flexible(
+                    flex: 35,
+                    child: MenuContainerRight(),
+                  ),
                 ],
               ),
             );
@@ -51,7 +52,7 @@ Widget renderMenuContainerLeft({required brand}) {
         children: [
           menuButtonLeft(brandName: brand, buttonText: 'LIVE'),
           menuButtonLeft(brandName: brand, buttonText: 'project'),
-          menuButtonLeft(brandName: brand, buttonText: 'fact sheet'),
+          menuButtonLeft(brandName: brand, buttonText: 'factsheet'),
           menuButtonLeft(brandName: null, buttonText: 'youtube record'),
           menuButtonLeft(brandName: null, buttonText: 'youtube live'),
           menuButtonLeft(brandName: null, buttonText: 'zoom live'),
@@ -69,56 +70,53 @@ class MenuContainerRight extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<CompanyInfoProvider>(
-      builder: (context, value, child) => Flexible(
-        flex: 35,
-        child: value.companyProjectList != null &&
-                value.propertyNameList == null
-            ? ListView.builder(
-                itemCount: value.companyProjectList!.length,
-                itemBuilder: (BuildContext context, index) {
-                  Map projectData = value.companyProjectList![index];
-                  String key = projectData.keys.elementAt(0);
-                  return projectButtonRight(
-                      buttonText: key,
-                      projectData: projectData,
-                      projectSelectionFunc: value.selectProject,
-                      bg: false,
-                      googleMap: false,
-                      showPropertyFactSheet: false);
-                },
-              )
-            : ListView.builder(
-                itemCount: value.propertyNameList!.length + 2,
-                itemBuilder: (BuildContext context, index) {
-                  return index == 0
-                      ? projectButtonRight(
-                          buttonText: 'google map',
-                          projectData: null,
-                          projectSelectionFunc: null,
-                          bg: false,
-                          googleMap: true,
-                          showPropertyFactSheet: false,
-                        )
-                      : index == 1
-                          ? projectButtonRight(
-                              buttonText: value.selectedProject,
-                              projectData: null,
-                              projectSelectionFunc: null,
-                              bg: true,
-                              googleMap: false,
-                              showPropertyFactSheet: false,
-                            )
-                          : projectButtonRight(
-                              buttonText: value.propertyNameList![index - 2],
-                              projectData: null,
-                              projectSelectionFunc: null,
-                              bg: false,
-                              googleMap: false,
-                              showPropertyFactSheet: true,
-                            );
-                },
-              ),
-      ),
+      builder: (context, value, child) =>
+          value.companyProjectList != null && value.propertyNameList == null
+              ? ListView.builder(
+                  itemCount: value.companyProjectList!.length,
+                  itemBuilder: (BuildContext context, index) {
+                    Map projectData = value.companyProjectList![index];
+                    String key = projectData.keys.elementAt(0);
+                    return projectButtonRight(
+                        buttonText: key,
+                        projectData: projectData,
+                        projectSelectionFunc: value.selectProject,
+                        bg: false,
+                        googleMap: false,
+                        showPropertyFactSheet: false);
+                  },
+                )
+              : ListView.builder(
+                  itemCount: value.propertyNameList!.length + 2,
+                  itemBuilder: (BuildContext context, index) {
+                    return index == 0
+                        ? projectButtonRight(
+                            buttonText: 'google map',
+                            projectData: null,
+                            projectSelectionFunc: null,
+                            bg: false,
+                            googleMap: true,
+                            showPropertyFactSheet: false,
+                          )
+                        : index == 1
+                            ? projectButtonRight(
+                                buttonText: value.selectedProject,
+                                projectData: null,
+                                projectSelectionFunc: null,
+                                bg: true,
+                                googleMap: false,
+                                showPropertyFactSheet: false,
+                              )
+                            : projectButtonRight(
+                                buttonText: value.propertyNameList![index - 2],
+                                projectData: null,
+                                projectSelectionFunc: null,
+                                bg: false,
+                                googleMap: false,
+                                showPropertyFactSheet: true,
+                              );
+                  },
+                ),
     );
   }
 }
@@ -130,7 +128,6 @@ Widget projectButtonRight(
     required bool bg,
     required bool googleMap,
     required bool showPropertyFactSheet}) {
-  // print(projectData);
   return Consumer<CompanyInfoProvider>(
     builder: (context, provider, child) {
       return Padding(
@@ -173,33 +170,41 @@ Widget projectButtonRight(
                     }
                   },
                   child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(width: 10),
-                        googleMap
-                            ? Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/map.png',
-                                    width: 20,
-                                    height: 30,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 10),
+                      googleMap
+                          ? Row(
+                              children: [
+                                Image.asset(
+                                  'assets/images/map.png',
+                                  width: 20,
+                                  height: 30,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  buttonText.toString().toUpperCase(),
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: provider.normalFontSize,
                                   ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    buttonText.toString().toUpperCase(),
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              )
-                            : Text(
-                                buttonText.toString().toUpperCase(),
-                                style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            )
+                          : Text(
+                              buttonText.toString().toUpperCase(),
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: provider.normalFontSize,
                               ),
-                      ]),
+                            ),
+                    ],
+                  ),
                   gradient: LinearGradient(
                     colors: [
                       Colors.white.withOpacity(.1),
@@ -248,7 +253,7 @@ Widget menuButtonLeft({required String? brandName, required buttonText}) {
               builder: (context, provider, child) {
                 return OutlineGradientButton(
                   onTap: () {
-                    if (buttonText.contains('fact sheet')) {
+                    if (buttonText.contains('factsheet')) {
                       provider.changeProjectFSStatus();
                     }
                   },
@@ -258,30 +263,39 @@ Widget menuButtonLeft({required String? brandName, required buttonText}) {
                         ? [
                             Text(
                               buttonText.toString().toUpperCase(),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                               style: TextStyle(
                                 color: Colors.white.withOpacity(.9),
+                                fontSize: provider.normalFontSize,
                               ),
                             ),
                             SizedBox(
-                              width: 8,
+                              width: 4,
                             ),
                           ]
                         : [
                             Text(
                               brandName.toString().toUpperCase(),
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 color: Colors.white.withOpacity(.9),
+                                fontSize: provider.normalFontSize,
                               ),
                             ),
                             SizedBox(
-                              width: 8,
-                            ),
-                            Text(
-                              buttonText.toString().toUpperCase(),
-                              style: TextStyle(color: Colors.white),
+                              width: 4,
                             ),
                             SizedBox(
-                              width: 8,
+                              child: Text(
+                                buttonText.toString().toUpperCase(),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: provider.normalFontSize,
+                                ),
+                              ),
                             ),
                           ],
                   ),

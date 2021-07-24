@@ -11,14 +11,18 @@ class InfoHeader extends StatelessWidget {
       builder: (context, provider, child) {
         return Center(
           child: Container(
+            //color: Colors.red,
             padding: EdgeInsets.zero,
             margin: EdgeInsets.zero,
-            height: provider.sizeController,
+            height: 160,
             child: Column(
               children: [
                 logoHeader(),
                 SizedBox(
-                  width: 170,
+                  height: 10,
+                ),
+                SizedBox(
+                  width: 180,
                   child: Column(
                     children: <Widget>[
                       Text(
@@ -26,14 +30,14 @@ class InfoHeader extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                          fontSize: provider.headingFontsize,
                           letterSpacing: 2,
                         ),
                         textAlign: TextAlign.center,
                       ),
                       Divider(
                         color: Colors.white,
-                        thickness: 4,
+                        thickness: 2,
                       ),
                       provider.selectedProject == null
                           ? Text('')
@@ -42,7 +46,7 @@ class InfoHeader extends StatelessWidget {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 18,
+                                fontSize: provider.headingFontsize,
                                 letterSpacing: 2,
                               ),
                               textAlign: TextAlign.center),
@@ -60,9 +64,8 @@ class InfoHeader extends StatelessWidget {
 
 Widget logoHeader() {
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 30),
     alignment: Alignment.center,
-    height: 130,
+    height: 90,
     width: 180,
     decoration: BoxDecoration(color: Colors.white.withOpacity(.4)),
     child: Image(

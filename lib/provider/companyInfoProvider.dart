@@ -1,6 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
 class CompanyInfoProvider extends ChangeNotifier {
+  //design related (for all screens).
+  double headingFontsize = 14;
+  double normalFontSize = 11;
+  double smallFontSize = 9;
+  String bgImage = 'assets/images/background1.jpg';
+
   List? _companyPojectList;
   String? _selectedCompany;
   String? _selectedProject;
@@ -21,10 +27,6 @@ class CompanyInfoProvider extends ChangeNotifier {
   set setSelectedCompanyProjectList(List projectList) {
     this._companyPojectList = projectList;
   }
-
-  double sizeController =
-      200; //keeping the ratio of header:menucontainer:footer = 2x:size-3x:x;
-  String bgImage = 'assets/images/background1.jpg';
 
   void selectProject(String projectName, Map project) {
     this._selectedProject = projectName;

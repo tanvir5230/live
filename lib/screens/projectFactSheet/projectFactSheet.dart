@@ -12,7 +12,7 @@ class ProjectFactSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        projectHeading(),
+        projectHeading(context),
         projectData(),
         projectButton(),
       ],
@@ -20,7 +20,7 @@ class ProjectFactSheet extends StatelessWidget {
   }
 }
 
-Widget projectHeading() {
+Widget projectHeading(context) {
   return SizedBox(
     width: 180,
     child: Consumer<CompanyInfoProvider>(
@@ -34,7 +34,8 @@ Widget projectHeading() {
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize:
+                      Provider.of<CompanyInfoProvider>(context).headingFontsize,
                   letterSpacing: 2,
                 ),
                 textAlign: TextAlign.center,
@@ -44,11 +45,14 @@ Widget projectHeading() {
                 thickness: 4,
               ),
               Text(
-                'factsheet of ${provider.selectedProject.toString().toUpperCase()}',
+                'factsheet of ${provider.selectedProject}'
+                    .toString()
+                    .toUpperCase(),
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                  fontSize:
+                      Provider.of<CompanyInfoProvider>(context).headingFontsize,
                   letterSpacing: 2,
                 ),
                 textAlign: TextAlign.center,
