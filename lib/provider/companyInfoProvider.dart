@@ -59,4 +59,26 @@ class CompanyInfoProvider extends ChangeNotifier {
     _propertyNameList = null;
     notifyListeners();
   }
+
+  //project fact sheet related. FS means fact sheet.
+  bool showProjectFSSelOpt = false;
+  bool showProjectFS = false;
+  Map? factsheetOfProject;
+  void changeProjectFSStatus() {
+    showProjectFSSelOpt = !showProjectFSSelOpt;
+    notifyListeners();
+  }
+
+  void changeProjectFSViewStatus() {
+    showProjectFSSelOpt = !showProjectFSSelOpt;
+    showProjectFS = !showProjectFS;
+    notifyListeners();
+  }
+
+  void fsOfSelectedProject(String projectName, int index) {
+    _selectedProject = projectName;
+    factSheetOfProperty = null;
+    factsheetOfProject =
+        companyProjectList![index][projectName]['fact_sheet_data'];
+  }
 }

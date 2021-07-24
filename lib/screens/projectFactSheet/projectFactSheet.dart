@@ -5,22 +5,22 @@ import 'package:live/provider/companyInfoProvider.dart';
 import 'package:live/screens/infoPage/menuContainer.dart';
 import 'package:provider/provider.dart';
 
-class PropertyFactSheet extends StatelessWidget {
-  const PropertyFactSheet({Key? key}) : super(key: key);
+class ProjectFactSheet extends StatelessWidget {
+  const ProjectFactSheet({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        propertyHeading(),
-        propertyData(),
-        propertyButton(),
+        projectHeading(),
+        projectData(),
+        projectButton(),
       ],
     );
   }
 }
 
-Widget propertyHeading() {
+Widget projectHeading() {
   return SizedBox(
     width: 180,
     child: Consumer<CompanyInfoProvider>(
@@ -30,7 +30,7 @@ Widget propertyHeading() {
           child: Column(
             children: [
               Text(
-                provider.selectedProject.toString().toUpperCase(),
+                provider.selectedCompany.toString().toUpperCase(),
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -44,7 +44,7 @@ Widget propertyHeading() {
                 thickness: 4,
               ),
               Text(
-                'factsheet of ${provider.selectedProperty.toString().toUpperCase()}',
+                'factsheet of ${provider.selectedProject.toString().toUpperCase()}',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -61,7 +61,7 @@ Widget propertyHeading() {
   );
 }
 
-Widget propertyData() {
+Widget projectData() {
   return Consumer<CompanyInfoProvider>(
     builder: (context, provider, child) {
       return Stack(
@@ -76,6 +76,7 @@ Widget propertyData() {
           Consumer<CompanyInfoProvider>(
             builder: (context, provider, child) {
               return Container(
+                margin: EdgeInsets.only(top: 10),
                 padding: const EdgeInsets.symmetric(vertical: 50.0),
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height - 180,
@@ -100,7 +101,7 @@ Widget propertyData() {
   );
 }
 
-Widget propertyButton() {
+Widget projectButton() {
   return Consumer<CompanyInfoProvider>(
     builder: (context, provider, child) {
       return ElevatedButton(
@@ -108,14 +109,14 @@ Widget propertyButton() {
           primary: Colors.red.shade900,
         ),
         onPressed: () {
-          provider.changePropertyFactSheetShow();
+          provider.changeProjectFSViewStatus();
         },
         child: SizedBox(
           width: 200,
           height: 50,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [Icon(Icons.arrow_left), Text('Return to properties')],
+            children: [Icon(Icons.arrow_left), Text('Return to projects')],
           ),
         ),
       );

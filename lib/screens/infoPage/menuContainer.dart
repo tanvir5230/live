@@ -12,7 +12,9 @@ class MenuContainer extends StatelessWidget {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        manInTheMiddle(),
+        Positioned(
+          child: manInTheMiddle(),
+        ),
         Consumer<CompanyInfoProvider>(
           builder: (context, provider, child) {
             return Container(
@@ -49,7 +51,7 @@ Widget renderMenuContainerLeft({required brand}) {
         children: [
           menuButtonLeft(brandName: brand, buttonText: 'LIVE'),
           menuButtonLeft(brandName: brand, buttonText: 'project'),
-          menuButtonLeft(brandName: brand, buttonText: 'exhibition'),
+          menuButtonLeft(brandName: brand, buttonText: 'fact sheet'),
           menuButtonLeft(brandName: null, buttonText: 'youtube record'),
           menuButtonLeft(brandName: null, buttonText: 'youtube live'),
           menuButtonLeft(brandName: null, buttonText: 'zoom live'),
@@ -218,15 +220,13 @@ Widget projectButtonRight(
 }
 
 Widget manInTheMiddle() {
-  return Positioned(
-    child: Transform.translate(
-      offset: Offset(-10, -10),
-      child: Container(
-        height: 350,
-        decoration: BoxDecoration(
-          //color: Colors.yellow,
-          image: DecorationImage(image: AssetImage('assets/images/man.png')),
-        ),
+  return Transform.translate(
+    offset: Offset(-10, 0),
+    child: Container(
+      height: 350,
+      decoration: BoxDecoration(
+        //color: Colors.yellow,
+        image: DecorationImage(image: AssetImage('assets/images/man.png')),
       ),
     ),
   );
@@ -244,50 +244,58 @@ Widget menuButtonLeft({required String? brandName, required buttonText}) {
           Container(
             width: double.infinity,
             height: 40,
-            child: OutlineGradientButton(
-              onTap: () {},
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: brandName == null
-                    ? [
-                        Text(
-                          buttonText.toString().toUpperCase(),
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(.9),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 8,
-                        ),
-                      ]
-                    : [
-                        Text(
-                          brandName.toString().toUpperCase(),
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(.9),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Text(
-                          buttonText.toString().toUpperCase(),
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        SizedBox(
-                          width: 8,
-                        ),
-                      ],
-              ),
-              gradient: LinearGradient(
-                colors: [
-                  Colors.white.withOpacity(.1),
-                  Colors.white.withOpacity(.9),
-                ],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-              ),
-              strokeWidth: 2,
+            child: Consumer<CompanyInfoProvider>(
+              builder: (context, provider, child) {
+                return OutlineGradientButton(
+                  onTap: () {
+                    if (buttonText.contains('fact sheet')) {
+                      provider.changeProjectFSStatus();
+                    }
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: brandName == null
+                        ? [
+                            Text(
+                              buttonText.toString().toUpperCase(),
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(.9),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                          ]
+                        : [
+                            Text(
+                              brandName.toString().toUpperCase(),
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(.9),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              buttonText.toString().toUpperCase(),
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                          ],
+                  ),
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.white.withOpacity(.1),
+                      Colors.white.withOpacity(.9),
+                    ],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                  strokeWidth: 2,
+                );
+              },
             ),
           ),
           Positioned(

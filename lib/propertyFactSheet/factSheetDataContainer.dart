@@ -8,13 +8,15 @@ Widget factSheetLeft() {
     flex: 35,
     child: Consumer<CompanyInfoProvider>(
       builder: (context, provider, child) {
-        print(provider.factSheetOfProperty);
+        var factsheet = provider.factSheetOfProperty == null
+            ? provider.factsheetOfProject
+            : provider.factSheetOfProperty;
         return ListView.builder(
-          itemCount: (provider.factSheetOfProperty!.keys.length / 2).floor(),
+          itemCount: (factsheet!.keys.length / 2).floor(),
           itemBuilder: (context, index) {
             return factSheetButtonLeft(
-              provider.factSheetOfProperty!.keys.toList()[index],
-              provider.factSheetOfProperty!.values.toList()[index],
+              factsheet.keys.toList()[index],
+              factsheet.values.toList()[index],
             );
           },
         );
@@ -27,17 +29,21 @@ Widget factSheetRight() {
   return Flexible(
     flex: 35,
     child: Consumer<CompanyInfoProvider>(
-      builder: (context, provider, child) => ListView.builder(
-        itemCount: (provider.factSheetOfProperty!.keys.length / 2).round(),
-        itemBuilder: (context, index) {
-          return factSheetButtonRight(
-            provider.factSheetOfProperty!.keys.toList()[
-                (provider.factSheetOfProperty!.length / 2).floor() + index],
-            provider.factSheetOfProperty!.values.toList()[
-                (provider.factSheetOfProperty!.length / 2).floor() + index],
-          );
-        },
-      ),
+      builder: (context, provider, child) {
+        var factsheet = provider.factSheetOfProperty == null
+            ? provider.factsheetOfProject
+            : provider.factSheetOfProperty;
+
+        return ListView.builder(
+          itemCount: (factsheet!.keys.length / 2).round(),
+          itemBuilder: (context, index) {
+            return factSheetButtonRight(
+              factsheet.keys.toList()[(factsheet.length / 2).floor() + index],
+              factsheet.values.toList()[(factsheet.length / 2).floor() + index],
+            );
+          },
+        );
+      },
     ),
   );
 }
