@@ -51,101 +51,13 @@ class InfoPage extends StatelessWidget {
                   top: 10,
                   left: 10,
                 ),
-                if (provider.showPropertyFactSheet)
-                  Center(
-                    child: Container(
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.height,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(provider.bgImage),
-                            colorFilter: ColorFilter.mode(
-                                Colors.black.withOpacity(.1), BlendMode.darken),
-                            fit: BoxFit.cover),
-                      ),
-                      child: PropertyFactSheet(),
-                    ),
-                  ),
-                if (provider.showProjectFSSelOpt)
-                  Container(
-                    height: double.infinity,
-                    width: double.infinity,
-                    color: Colors.black87,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "choose a project to show its fact sheet"
-                              .toUpperCase(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.white),
-                        ),
-                        SingleChildScrollView(
-                          child: Container(
-                            margin: EdgeInsets.symmetric(vertical: 20),
-                            height: 300,
-                            width: 150,
-                            child: ListView.builder(
-                              itemCount: provider.companyProjectList!.length,
-                              itemBuilder: (context, index) {
-                                Map projectData =
-                                    provider.companyProjectList![index];
-                                String key = projectData.keys.elementAt(0);
-                                return Container(
-                                  margin: EdgeInsets.symmetric(vertical: 5),
-                                  child: OutlinedButton(
-                                    style: OutlinedButton.styleFrom(
-                                      padding: EdgeInsets.all(20),
-                                      side: BorderSide(
-                                        color: Colors.white,
-                                        width: 1,
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      provider.changeProjectFSViewStatus();
-                                      provider.fsOfSelectedProject(key, index);
-                                    },
-                                    child: Text(
-                                      '$key',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 200,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              provider.changeProjectFSStatus();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.red.shade900,
-                            ),
-                            child: Text('cancel'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                if (provider.showProjectFS)
-                  Center(
-                    child: Container(
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.height,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(provider.bgImage),
-                            colorFilter: ColorFilter.mode(
-                                Colors.black.withOpacity(.1), BlendMode.darken),
-                            fit: BoxFit.cover),
-                      ),
-                      child: ProjectFactSheet(),
-                    ),
-                  ),
+                provider.showPropertyFactSheet
+                    ? propertyFS(context, provider)
+                    : Text(''),
+                provider.showProjectFSSelOpt
+                    ? projectOptionsForFS(provider)
+                    : Text(''),
+                provider.showProjectFS ? projectFS(context, provider) : Text('')
               ],
             ),
           ),
@@ -153,4 +65,102 @@ class InfoPage extends StatelessWidget {
       },
     );
   }
+}
+
+Widget propertyFS(context, provider) {
+  return Center(
+    child: Container(
+      width: double.infinity,
+      height: MediaQuery.of(context).size.height,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage(provider.bgImage),
+            colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(.1), BlendMode.darken),
+            fit: BoxFit.cover),
+      ),
+      child: PropertyFactSheet(),
+    ),
+  );
+}
+
+Widget projectOptionsForFS(provider) {
+  return Container(
+    height: double.infinity,
+    width: double.infinity,
+    color: Colors.black87,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          "choose a project to show its fact sheet".toUpperCase(),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        SingleChildScrollView(
+          child: Container(
+            margin: EdgeInsets.symmetric(vertical: 20),
+            height: 300,
+            width: 150,
+            child: ListView.builder(
+              itemCount: provider.companyProjectList!.length,
+              itemBuilder: (context, index) {
+                Map projectData = provider.companyProjectList![index];
+                String key = projectData.keys.elementAt(0);
+                return Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      padding: EdgeInsets.all(20),
+                      side: BorderSide(
+                        color: Colors.white,
+                        width: 1,
+                      ),
+                    ),
+                    onPressed: () {
+                      provider.changeProjectFSViewStatus();
+                      provider.fsOfSelectedProject(key, index);
+                    },
+                    child: Text(
+                      '$key',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 200,
+          height: 50,
+          child: ElevatedButton(
+            onPressed: () {
+              provider.changeProjectFSStatus();
+            },
+            style: ElevatedButton.styleFrom(
+              primary: Colors.red.shade900,
+            ),
+            child: Text('cancel'),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget projectFS(context, provider) {
+  return Center(
+    child: Container(
+      width: double.infinity,
+      height: MediaQuery.of(context).size.height,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage(provider.bgImage),
+            colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(.1), BlendMode.darken),
+            fit: BoxFit.cover),
+      ),
+      child: ProjectFactSheet(),
+    ),
+  );
 }
