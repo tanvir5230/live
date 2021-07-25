@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:live/provider/companyInfoProvider.dart';
+import 'package:live/screens/infoPage/infoPage.dart';
+import 'package:provider/provider.dart';
 
 class RenderBrands extends StatefulWidget {
   final String searchedBrandName;
@@ -138,21 +141,48 @@ class _RenderBrandsState extends State<RenderBrands> {
 }
 
 Widget renderBrandList(List companies, int index) {
-  return Container(
-    height: 70,
-    margin: EdgeInsets.symmetric(vertical: 10),
-    decoration: BoxDecoration(
+  return ChangeNotifierProvider<CompanyInfoProvider>(
+    create: (context) => CompanyInfoProvider(),
+    child: Container(
+      height: 70,
+      margin: EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
         border: Border.all(color: Colors.black12),
-        borderRadius: BorderRadius.all(Radius.circular(10))),
-    child: Center(
-      child: ListTile(
-        onTap: () {},
-        leading: CircleAvatar(
-          backgroundImage: NetworkImage(companies[index]['brandLogo']),
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
         ),
-        title: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Text(companies[index]['brandName']),
+      ),
+      child: Center(
+        child: Consumer<CompanyInfoProvider>(
+          builder: (context, provider, child) {
+            return ListTile(
+              onTap: () {
+                provider.setSelectedCompanyName = companies[index]['brandName'];
+                provider.setSelectedCompanyProjectList =
+                    companies[index]['project'];
+                var companyName = provider.selectedCompany;
+                var companyList = provider.companyProjectList;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Scaffold(
+                      body: ChangeNotifierProvider<CompanyInfoProvider>(
+                        create: (context) => CompanyInfoProvider(),
+                        child: InfoPage(companyName!, companyList!),
+                      ),
+                    ),
+                  ),
+                );
+              },
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage(companies[index]['brandLogo']),
+              ),
+              title: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Text(companies[index]['brandName']),
+              ),
+            );
+          },
         ),
       ),
     ),

@@ -12,7 +12,6 @@ class InfoPage extends StatelessWidget {
   final String selectedCompany;
   final List companyProjectList;
   InfoPage(this.selectedCompany, this.companyProjectList);
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

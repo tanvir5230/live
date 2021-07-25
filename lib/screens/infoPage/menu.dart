@@ -70,6 +70,7 @@ class _MenuState extends State<Menu> {
                     color: Colors.white,
                     iconSize: 25,
                     onPressed: () {
+                      Navigator.pop(context);
                       AuthService().signOut();
                     },
                     icon: Icon(Icons.login_outlined),

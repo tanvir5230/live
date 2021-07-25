@@ -257,47 +257,28 @@ Widget menuButtonLeft({required String? brandName, required buttonText}) {
                       provider.changeProjectFSStatus();
                     }
                   },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: brandName == null
-                        ? [
-                            Text(
-                              buttonText.toString().toUpperCase(),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: TextStyle(
-                                color: Colors.white.withOpacity(.9),
-                                fontSize: provider.normalFontSize,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 4,
-                            ),
-                          ]
-                        : [
-                            Text(
-                              brandName.toString().toUpperCase(),
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: Colors.white.withOpacity(.9),
-                                fontSize: provider.normalFontSize,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 4,
-                            ),
-                            SizedBox(
-                              child: Text(
-                                buttonText.toString().toUpperCase(),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: provider.normalFontSize,
-                                ),
-                              ),
-                            ),
-                          ],
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Text(
+                          brandName != null
+                              ? brandName +
+                                  ' ' +
+                                  buttonText.toString().toUpperCase()
+                              : buttonText.toString().toUpperCase(),
+                          textAlign: TextAlign.end,
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(.9),
+                            fontSize: provider.normalFontSize,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                      ],
+                    ),
                   ),
                   gradient: LinearGradient(
                     colors: [

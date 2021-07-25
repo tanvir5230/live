@@ -39,15 +39,16 @@ class SignUpPage extends StatelessWidget {
               ),
             ), //form container
             Container(
-                width: double.infinity,
-                height: 50,
-                child: Text(
-                  "By clicking sign up you'll agree and accept\n all of our terms and privacy policy.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color(normalTextColor),
-                  ),
-                )) //footer container
+              width: double.infinity,
+              height: 50,
+              child: Text(
+                'By clicking sign up you\'ll agree and accept\n all of our terms and privacy policy.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(normalTextColor),
+                ),
+              ),
+            ), //footer container
           ],
         ),
       ),
