@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:live/provider/authenticationProvider.dart';
 import 'package:live/screens/authenticate/renderAuthPage.dart';
 import 'package:live/screens/home/home.dart';
 import 'package:live/screens/loading.dart';
+import 'package:provider/provider.dart';
 
 class Wrapper extends StatelessWidget {
   const Wrapper({Key? key}) : super(key: key);
@@ -19,7 +21,10 @@ class Wrapper extends StatelessWidget {
         } else if (snapshot.hasError) {
           return Text('error');
         } else {
-          return AuthenticationPage();
+          return ChangeNotifierProvider<AuthenticationProvider>(
+            create: (context) => AuthenticationProvider(),
+            child: AuthenticationPage(),
+          );
         }
       },
     );

@@ -14,7 +14,7 @@ class AuthService {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      return {'user': customUser(result.user), 'error': null};
+      return {'user': customUser(result.user)!.uid, 'error': null};
     } on FirebaseAuthException catch (e) {
       return {
         'user': null,
@@ -52,7 +52,6 @@ class AuthService {
     try {
       return await _auth.signOut();
     } catch (e) {
-      print(e.toString());
       return null;
     }
   }

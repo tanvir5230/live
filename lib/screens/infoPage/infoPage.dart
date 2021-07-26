@@ -20,44 +20,48 @@ class InfoPage extends StatelessWidget {
         provider.setSelectedCompanyName = selectedCompany;
         provider.setSelectedCompanyProjectList = companyProjectList;
 
-        return Container(
-          height: size.height,
-          width: size.width,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(provider.bgImage),
-                colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(.1), BlendMode.darken),
-                fit: BoxFit.cover),
-          ),
-          child: SafeArea(
-            child: Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Container(
-                  height: size.height,
-                  width: size.width,
-                  child: Column(
-                    children: [
-                      InfoHeader(),
-                      MenuContainer(),
-                      Footer(),
-                    ],
+        return SingleChildScrollView(
+          child: Container(
+            height: size.height,
+            width: size.width,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(provider.bgImage),
+                  colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(.1), BlendMode.darken),
+                  fit: BoxFit.cover),
+            ),
+            child: SafeArea(
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Container(
+                    height: size.height,
+                    width: size.width,
+                    child: Column(
+                      children: [
+                        InfoHeader(),
+                        MenuContainer(),
+                        Footer(),
+                      ],
+                    ),
                   ),
-                ),
-                Positioned(
-                  child: Menu(),
-                  top: 10,
-                  left: 10,
-                ),
-                provider.showPropertyFactSheet
-                    ? propertyFS(context, provider)
-                    : Text(''),
-                provider.showProjectFSSelOpt
-                    ? projectOptionsForFS(provider)
-                    : Text(''),
-                provider.showProjectFS ? projectFS(context, provider) : Text('')
-              ],
+                  Positioned(
+                    child: Menu(),
+                    top: 10,
+                    left: 10,
+                  ),
+                  provider.showPropertyFactSheet
+                      ? propertyFS(context, provider)
+                      : Text(''),
+                  provider.showProjectFSSelOpt
+                      ? projectOptionsForFS(provider)
+                      : Text(''),
+                  provider.showProjectFS
+                      ? projectFS(context, provider)
+                      : Text('')
+                ],
+              ),
             ),
           ),
         );
