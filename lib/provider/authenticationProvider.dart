@@ -57,19 +57,21 @@ class AuthenticationProvider extends ChangeNotifier {
   void submitLogin() async {
     if (loginFormKey.currentState!.validate()) {
       //result will contain a Map having two props name user and error
-      final result = await AuthService().signIn(email, password);
       loginLoading = true;
+      notifyListeners();
+      final result = await AuthService().signIn(email, password);
       if (result['user'] == null) {
         loginLoading = false;
         error = result['error'].code;
+        notifyListeners();
       } else {
         error = '';
         loginFormKey.currentState!.reset();
+        notifyListeners();
       }
     } else {
       return;
     }
-    notifyListeners();
   }
 // ################################## //
 // login finsished ################### //
@@ -84,6 +86,7 @@ class AuthenticationProvider extends ChangeNotifier {
   var phone;
   String confirmPassword = '';
   dynamic currentSelectedLanguage;
+  bool showDropdownError = false;
   XFile? img;
   String? fileName = '';
   String imageUrl = '';
@@ -150,18 +153,26 @@ class AuthenticationProvider extends ChangeNotifier {
   }
 
   void submitReg() async {
-    if (signupFormKey.currentState!.validate()) {
+    if (currentSelectedLanguage == null) {
+      showDropdownError = true;
+      notifyListeners();
+    }
+
+    if (signupFormKey.currentState!.validate() &&
+        currentSelectedLanguage != null) {
       signupLoading = true;
       notifyListeners();
       final result = await AuthService().signUp(email, password);
       if (result['user'] == null) {
         signupLoading = false;
         error = result['error'].code;
+        notifyListeners();
       } else {
         error = '';
         final uid = result['user'];
         await addUser(uid, fileName!);
         signupFormKey.currentState!.reset();
+        notifyListeners();
       }
     }
   }

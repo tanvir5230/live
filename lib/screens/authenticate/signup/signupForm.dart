@@ -139,6 +139,16 @@ class RenderSignUpForm extends StatelessWidget {
                 ),
               ),
             ),
+            provider.currentSelectedLanguage == null &&
+                    provider.showDropdownError
+                ? Container(
+                    padding: EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      'you must choose your language.',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  )
+                : Container(),
 
             Container(
               width: size.width * .6,
