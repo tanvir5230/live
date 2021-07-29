@@ -1,7 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:live/services/authenticationService.dart';
+import 'package:live/services/firestoreService.dart';
 
 class HomepageProvider extends ChangeNotifier {
+//load user data
+  Map<String, dynamic>? user;
+  void loadUser() async {
+    user = await FirestoreService().user(AuthService().getCurrentUser()!.uid);
+  }
+
 //this will all dropdown item for filter section such as countries, cities etc. after getting company data from firebase
   Set allCountries = {};
   Set allCities = {};

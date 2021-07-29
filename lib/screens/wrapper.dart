@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:live/provider/HomepageProvider.dart';
 import 'package:live/provider/authenticationProvider.dart';
 import 'package:live/screens/authenticate/renderAuthPage.dart';
 import 'package:live/screens/home/home.dart';
@@ -15,7 +16,10 @@ class Wrapper extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Home();
+          return ChangeNotifierProvider<HomepageProvider>(
+            create: (context) => HomepageProvider(),
+            child: Home(),
+          );
         } else if (snapshot.connectionState == ConnectionState.waiting) {
           return Loading();
         } else if (snapshot.hasError) {

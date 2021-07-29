@@ -18,8 +18,8 @@ class _RenderBrandsState extends State<RenderBrands> {
     return Consumer<HomepageProvider>(
       builder: (context, provider, child) => SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(top: 10),
-          height: MediaQuery.of(context).size.height - 163,
+          padding: EdgeInsets.only(top: 5),
+          height: MediaQuery.of(context).size.height - 180,
           child: FutureBuilder(
             future: FirebaseFirestore.instance.collection('companies').get(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -122,8 +122,7 @@ Widget renderBrandList(List companies, int index) {
   return ChangeNotifierProvider<CompanyInfoProvider>(
     create: (context) => CompanyInfoProvider(),
     child: Container(
-      height: 70,
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black12),
         borderRadius: BorderRadius.all(
@@ -156,7 +155,7 @@ Widget renderBrandList(List companies, int index) {
                 backgroundImage: NetworkImage(companies[index]['brandLogo']),
               ),
               title: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Text(companies[index]['brandName']),
               ),
             );

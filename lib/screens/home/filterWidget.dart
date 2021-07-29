@@ -9,7 +9,9 @@ class FilterSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<HomepageProvider>(
       builder: (context, provider, child) {
-        provider.loadDropDownItems();
+        if (provider.allCountries.length == 0) {
+          provider.loadDropDownItems();
+        }
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: SizedBox(

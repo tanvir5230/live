@@ -4,6 +4,11 @@ import 'package:live/models/user.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  //get the current user
+  User? getCurrentUser() {
+    return _auth.currentUser;
+  }
+
   //my custom user model
   CustomUser? customUser(User? user) {
     return user != null ? CustomUser(user.uid) : null;
