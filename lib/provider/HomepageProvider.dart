@@ -8,6 +8,8 @@ class HomepageProvider extends ChangeNotifier {
   Map<String, dynamic>? user;
   void loadUser() async {
     user = await FirestoreService().user(AuthService().getCurrentUser()!.uid);
+    print('hello');
+    notifyListeners();
   }
 
 //this will all dropdown item for filter section such as countries, cities etc. after getting company data from firebase

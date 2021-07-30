@@ -15,16 +15,6 @@ class FirestoreService {
       return null;
     }
   }
-  // .then((value) {
-  //     if (value.exists) {
-  //       Map<String, dynamic> user = value.data() as Map<String, dynamic>;
-  //       if (user['user_type'] == 'admin') {
-  //         admin = true;
-  //       }
-  //     } else {
-  //       admin = false;
-  //     }
-  //   });
 
   //reference to companies collection
   CollectionReference companies =

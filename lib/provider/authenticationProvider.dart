@@ -95,32 +95,6 @@ class AuthenticationProvider extends ChangeNotifier {
 
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 
-  Future<void> addUser(String uid, String imageName) async {
-    //upload image
-    File file = File(img!.path);
-    try {
-      final fileName = '$imageName${DateTime.now()}';
-      await firebase_storage.FirebaseStorage.instance
-          .ref('profile images/$fileName')
-          .putFile(file);
-      imageUrl = await firebase_storage.FirebaseStorage.instance
-          .ref('profile images/$fileName')
-          .getDownloadURL();
-    } on FirebaseException catch (e) {
-      print(e.code);
-    }
-    return users
-        .doc(uid)
-        .set({
-          'name': name,
-          'phone_number': phone,
-          'language': currentSelectedLanguage,
-          'photoUrl': imageUrl,
-        })
-        .then((value) => print('user added'))
-        .catchError((error) => print('failed to add user.'));
-  }
-
   void changeName(String name) {
     this.name = name;
     notifyListeners();
@@ -170,10 +144,42 @@ class AuthenticationProvider extends ChangeNotifier {
       } else {
         error = '';
         final uid = result['user'];
-        await addUser(uid, fileName!);
+        await addUser(uid, fileName == null ? "" : fileName!);
         signupFormKey.currentState!.reset();
         notifyListeners();
       }
+    }
+  }
+
+  Future<void> addUser(String uid, String imageName) async {
+    //upload image
+    if (img != null) {
+      File file = File(img!.path);
+      try {
+        final fileName = '${DateTime.now()}$imageName';
+        await firebase_storage.FirebaseStorage.instance
+            .ref('profile images/$fileName')
+            .putFile(file);
+
+        imageUrl = await firebase_storage.FirebaseStorage.instance
+            .ref('profile images/$fileName')
+            .getDownloadURL();
+      } on FirebaseException catch (e) {
+        print(e.code);
+      }
+    }
+    try {
+      await users.doc(uid).set({
+        'name': name,
+        'phone_number': phone,
+        'email': email,
+        'language': currentSelectedLanguage,
+        'photoUrl': imageUrl,
+      });
+    } on FirebaseException catch (e) {
+      print(e.toString());
+    } catch (e) {
+      print(e.toString());
     }
   }
 

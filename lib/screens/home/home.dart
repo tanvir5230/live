@@ -15,13 +15,16 @@ class Home extends StatelessWidget {
     return SafeArea(
       child: Consumer<HomepageProvider>(
         builder: (context, provider, child) {
-          provider.loadUser();
           final user = provider.user;
+          if (user == null) {
+            provider.loadUser();
+          }
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.white,
               iconTheme: IconThemeData(color: Colors.black),
               elevation: 0,
+              centerTitle: true,
               title: Text(
                 'CHOOSE YOUR BRAND',
                 style: TextStyle(
