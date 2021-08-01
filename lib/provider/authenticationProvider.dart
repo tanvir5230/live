@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/foundation.dart';
@@ -152,24 +151,7 @@ class AuthenticationProvider extends ChangeNotifier {
   }
 
   Future<void> addUser(String uid, String imageName) async {
-    //upload image
-    if (img != null) {
-      File file = File(img!.path);
-      print('started to upload');
-      try {
-        final fileName = '${DateTime.now()}$imageName';
-        print(fileName);
-        await firebase_storage.FirebaseStorage.instance
-            .ref('profile images/$fileName')
-            .putFile(file);
-        print('photo added');
-        imageUrl = await firebase_storage.FirebaseStorage.instance
-            .ref('profile images/$fileName')
-            .getDownloadURL();
-      } on FirebaseException catch (e) {
-        print(e.code);
-      }
-    }
+    //add user first
     try {
       await users.doc(uid).set({
         'name': name,
@@ -180,6 +162,22 @@ class AuthenticationProvider extends ChangeNotifier {
       });
     } on FirebaseException catch (e) {
       print(e.code);
+    }
+    //upload image
+    if (img != null) {
+      File file = File(img!.path);
+      try {
+        final fileName = '${DateTime.now()}$imageName';
+        await firebase_storage.FirebaseStorage.instance
+            .ref('profile images/$fileName')
+            .putFile(file);
+        imageUrl = await firebase_storage.FirebaseStorage.instance
+            .ref('profile images/$fileName')
+            .getDownloadURL();
+        await users.doc(uid).update({'photoUrl': imageUrl});
+      } on FirebaseException catch (e) {
+        print(e.code);
+      }
     }
   }
 

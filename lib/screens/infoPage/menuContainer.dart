@@ -30,7 +30,7 @@ class MenuContainer extends StatelessWidget {
                         brand: provider.selectedCompany),
                   ),
                   Flexible(
-                    flex: 30,
+                    flex: MediaQuery.of(context).size.width > 900 ? 15 : 30,
                     child: Container(),
                   ),
                   Flexible(
