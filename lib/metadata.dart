@@ -1,8 +1,9 @@
 final Map<String, String> links = {
-  'facebook': '',
-  'linkeding': '',
-  'youtube': '',
-  'twitter': '',
+  'facebook': 'https://www.facebook.com/atworldgroups',
+  'linkedin': 'https://www.linkedin.com/in/atworldgroups',
+  'youtube': 'https://www.youtube.com/channel/UCIA4yhkGHGWoS7g4glZykjA',
+  'twitter': 'https://twitter.com/atworldgroups',
+  'instagram': 'https://www.instagram.com/atworldgroups',
   'aboutus': 'https://aat.world/about-us',
   'contactus': 'atworld2021@gmail.com'
 };
