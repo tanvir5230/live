@@ -8,7 +8,6 @@ class HomepageProvider extends ChangeNotifier {
   Map<String, dynamic>? user;
   void loadUser() async {
     user = await FirestoreService().user(AuthService().getCurrentUser()!.uid);
-    print('hello');
     notifyListeners();
   }
 

@@ -136,7 +136,6 @@ class AuthenticationProvider extends ChangeNotifier {
         currentSelectedLanguage != null) {
       signupLoading = true;
       notifyListeners();
-      print('hello auth started');
       final result = await AuthService().signUp(email, password);
       if (result['user'] == null) {
         signupLoading = false;
