@@ -87,18 +87,21 @@ class InfoPage extends StatelessWidget {
 }
 
 Widget propertyFS(context, provider) {
+  final Size size = MediaQuery.of(context).size;
   return Center(
-    child: Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage(provider.bgImage),
-            colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(.1), BlendMode.darken),
-            fit: BoxFit.cover),
+    child: SingleChildScrollView(
+      child: Container(
+        width: size.width > 600 ? size.width * .6 : size.width,
+        height: size.width > 1024 ? size.height - 46 : size.height,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(provider.bgImage),
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(.1), BlendMode.darken),
+              fit: BoxFit.cover),
+        ),
+        child: PropertyFactSheet(),
       ),
-      child: PropertyFactSheet(),
     ),
   );
 }
@@ -168,18 +171,21 @@ Widget projectOptionsForFS(provider) {
 }
 
 Widget projectFS(context, provider) {
+  final Size size = MediaQuery.of(context).size;
   return Center(
-    child: Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage(provider.bgImage),
-            colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(.1), BlendMode.darken),
-            fit: BoxFit.cover),
+    child: SingleChildScrollView(
+      child: Container(
+        width: size.width > 600 ? size.width * .6 : size.width,
+        height: size.width > 1024 ? size.height - 46 : size.height,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(provider.bgImage),
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(.1), BlendMode.darken),
+              fit: BoxFit.cover),
+        ),
+        child: ProjectFactSheet(),
       ),
-      child: ProjectFactSheet(),
     ),
   );
 }
