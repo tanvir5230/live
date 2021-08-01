@@ -7,9 +7,14 @@ import 'package:live/screens/home/home.dart';
 import 'package:live/screens/loading.dart';
 import 'package:provider/provider.dart';
 
-class Wrapper extends StatelessWidget {
+class Wrapper extends StatefulWidget {
   const Wrapper({Key? key}) : super(key: key);
 
+  @override
+  _WrapperState createState() => _WrapperState();
+}
+
+class _WrapperState extends State<Wrapper> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(

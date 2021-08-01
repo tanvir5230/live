@@ -10,12 +10,10 @@ class RenderLoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return Consumer<AuthenticationProvider>(
       builder: (context, provider, child) {
         return Container(
-          padding: EdgeInsets.only(top: 50),
-          width: size.width * .9,
+          padding: EdgeInsets.fromLTRB(10, 50, 10, 0),
           child: Form(
             key: provider.loginFormKey,
             child: Column(

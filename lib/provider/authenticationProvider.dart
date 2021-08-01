@@ -136,6 +136,7 @@ class AuthenticationProvider extends ChangeNotifier {
         currentSelectedLanguage != null) {
       signupLoading = true;
       notifyListeners();
+      print('hello auth started');
       final result = await AuthService().signUp(email, password);
       if (result['user'] == null) {
         signupLoading = false;
@@ -155,12 +156,14 @@ class AuthenticationProvider extends ChangeNotifier {
     //upload image
     if (img != null) {
       File file = File(img!.path);
+      print('started to upload');
       try {
         final fileName = '${DateTime.now()}$imageName';
+        print(fileName);
         await firebase_storage.FirebaseStorage.instance
             .ref('profile images/$fileName')
             .putFile(file);
-
+        print('photo added');
         imageUrl = await firebase_storage.FirebaseStorage.instance
             .ref('profile images/$fileName')
             .getDownloadURL();
@@ -177,9 +180,7 @@ class AuthenticationProvider extends ChangeNotifier {
         'photoUrl': imageUrl,
       });
     } on FirebaseException catch (e) {
-      print(e.toString());
-    } catch (e) {
-      print(e.toString());
+      print(e.code);
     }
   }
 

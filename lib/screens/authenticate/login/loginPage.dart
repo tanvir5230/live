@@ -16,20 +16,122 @@ class LoginPage extends StatelessWidget {
     return Consumer<AuthenticationProvider>(
       builder: (context, provider, child) => provider.loginLoading
           ? Loading()
-          : Container(
-              width: size.width,
-              height: size.height,
-              color: Color(formBgColor),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    Logo(),
-                    RenderLoginForm(),
-                    LoginFooter(),
-                  ],
-                ),
-              ),
+          : LayoutBuilder(
+              builder: (context, constrains) {
+                if (constrains.maxWidth < 600) {
+                  return Container(
+                    width: size.width,
+                    height: size.height,
+                    color: Color(formBgColor),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          size.width > 600 ? Container() : Logo(),
+                          RenderLoginForm(),
+                          LoginFooter(),
+                        ],
+                      ),
+                    ),
+                  );
+                } else if (constrains.maxWidth > 600 &&
+                    constrains.maxWidth < 1000) {
+                  return Container(
+                    width: size.width,
+                    height: size.height,
+                    color: Color(formBgColor),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            width: 600,
+                            height: size.height,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Logo(),
+                                RenderLoginForm(),
+                                LoginFooter(),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                } else {
+                  return Container(
+                    width: size.width,
+                    height: size.height,
+                    color: Color(formBgColor),
+                    child: Column(
+                      children: [
+                        AuthHeaderForPC(),
+                        Container(
+                          width: 600,
+                          height: size.height - 60,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              RenderLoginForm(),
+                              LoginFooter(),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+              },
             ),
+    );
+  }
+}
+
+class AuthHeaderForPC extends StatelessWidget {
+  const AuthHeaderForPC({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.black,
+      height: 60,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0),
+            child: SizedBox(
+              width: 100,
+              height: 50,
+              child: Image.asset('assets/images/app_logo_white_large.png'),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: Row(
+              children: [
+                TextButton(
+                  child: Text(
+                    'contact us'.toUpperCase(),
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {},
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                TextButton(
+                  child: Text(
+                    'contact us'.toUpperCase(),
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {},
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
