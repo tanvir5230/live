@@ -186,7 +186,7 @@ class HomeDrawerContent extends StatelessWidget {
                         height: 10,
                       ),
                       ListTile(
-                        title: Text('language: ${user['language']}'),
+                        title: Text('language: \t ${user['language']}'),
                         trailing: IconButton(
                           icon: Icon(
                             Icons.edit,
@@ -199,7 +199,7 @@ class HomeDrawerContent extends StatelessWidget {
                         height: 10,
                       ),
                       ListTile(
-                        title: Text('phone no: ${user["phone_number"]}'),
+                        title: Text('phone no: \t ${user["phone_number"]}'),
                         trailing: IconButton(
                           icon: Icon(
                             Icons.edit_rounded,

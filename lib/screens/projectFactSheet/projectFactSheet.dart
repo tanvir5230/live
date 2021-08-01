@@ -10,15 +10,12 @@ class ProjectFactSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    return Container(
-      child: Column(
-        children: [
-          projectHeading(context),
-          projectData(size),
-          projectButton(),
-        ],
-      ),
+    return Column(
+      children: [
+        projectHeading(context),
+        projectData(),
+        projectButton(),
+      ],
     );
   }
 }
@@ -68,7 +65,7 @@ Widget projectHeading(context) {
   );
 }
 
-Widget projectData(size) {
+Widget projectData() {
   return Consumer<CompanyInfoProvider>(
     builder: (context, provider, child) {
       return Stack(
@@ -93,7 +90,7 @@ Widget projectData(size) {
                   children: [
                     factSheetLeft(),
                     Flexible(
-                      flex: size.width > 900 ? 15 : 30,
+                      flex: 30,
                       child: Container(),
                     ),
                     factSheetRight(),
