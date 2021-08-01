@@ -20,50 +20,66 @@ class InfoPage extends StatelessWidget {
         provider.setSelectedCompanyName = selectedCompany;
         provider.setSelectedCompanyProjectList = companyProjectList;
 
-        return SingleChildScrollView(
-          child: Container(
-            height: size.height,
-            width: size.width,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(provider.bgImage),
-                  colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(.1), BlendMode.darken),
-                  fit: BoxFit.cover),
-            ),
-            child: SafeArea(
-              child: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  Container(
-                    height: size.height,
-                    width: size.width,
-                    child: Column(
-                      children: [
-                        InfoHeader(),
-                        MenuContainer(),
-                        Footer(),
-                      ],
-                    ),
+        return LayoutBuilder(
+          builder: (context, constrains) {
+            return SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.zero,
+                height:
+                    constrains.maxWidth > 1024 ? size.height - 60 : size.height,
+                width: size.width,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(provider.bgImage),
+                      colorFilter: ColorFilter.mode(
+                          Colors.black.withOpacity(.1), BlendMode.darken),
+                      fit: BoxFit.cover),
+                ),
+                child: SafeArea(
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Center(
+                        child: Container(
+                          width: constrains.maxWidth < 600
+                              ? size.width
+                              : size.width * .6,
+                          height: size.height,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                constrains.maxWidth > 1024
+                                    ? Container()
+                                    : logoHeader(),
+                                InfoHeader(),
+                                MenuContainer(),
+                                Footer(),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        child: Menu(),
+                        top: 10,
+                        left: 10,
+                      ),
+                      provider.showPropertyFactSheet
+                          ? propertyFS(context, provider)
+                          : Text(''),
+                      provider.showProjectFSSelOpt
+                          ? projectOptionsForFS(provider)
+                          : Text(''),
+                      provider.showProjectFS
+                          ? projectFS(context, provider)
+                          : Text('')
+                    ],
                   ),
-                  Positioned(
-                    child: Menu(),
-                    top: 10,
-                    left: 10,
-                  ),
-                  provider.showPropertyFactSheet
-                      ? propertyFS(context, provider)
-                      : Text(''),
-                  provider.showProjectFSSelOpt
-                      ? projectOptionsForFS(provider)
-                      : Text(''),
-                  provider.showProjectFS
-                      ? projectFS(context, provider)
-                      : Text('')
-                ],
+                ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
     );
@@ -164,6 +180,18 @@ Widget projectFS(context, provider) {
             fit: BoxFit.cover),
       ),
       child: ProjectFactSheet(),
+    ),
+  );
+}
+
+Widget logoHeader() {
+  return Container(
+    alignment: Alignment.center,
+    height: 90,
+    width: 180,
+    decoration: BoxDecoration(color: Colors.white.withOpacity(.4)),
+    child: Image(
+      image: AssetImage('assets/images/app_logo_dark_large.png'),
     ),
   );
 }

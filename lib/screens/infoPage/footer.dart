@@ -7,40 +7,43 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      width: double.infinity,
-      height: 85,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Flexible(
-            flex: 2,
-            child: leftButtons(),
-          ),
-          Flexible(
-            flex: 6,
-            child: Stack(
-              clipBehavior: Clip.none,
-              alignment: Alignment.bottomCenter,
-              children: [
-                socialButtons(),
-                Positioned(
-                  bottom: 40,
-                  child: Icon(
-                    Icons.qr_code_2_outlined,
-                    size: 50,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
+    return Center(
+      child: Container(
+        color: Colors.black.withOpacity(.5),
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        width: double.infinity,
+        height: 100,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Flexible(
+              flex: 2,
+              child: leftButtons(),
             ),
-          ),
-          Flexible(
-            flex: 2,
-            child: rightButtons(),
-          ),
-        ],
+            Flexible(
+              flex: 6,
+              child: Stack(
+                clipBehavior: Clip.none,
+                alignment: Alignment.bottomCenter,
+                children: [
+                  socialButtons(),
+                  Positioned(
+                    bottom: 40,
+                    child: Icon(
+                      Icons.qr_code_2_outlined,
+                      size: 50,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Flexible(
+              flex: 2,
+              child: rightButtons(),
+            ),
+          ],
+        ),
       ),
     );
   }

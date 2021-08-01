@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:live/provider/HomepageProvider.dart';
 import 'package:live/provider/companyInfoProvider.dart';
+import 'package:live/screens/authenticate/signup/shared.dart';
 import 'package:live/screens/infoPage/infoPage.dart';
 import 'package:provider/provider.dart';
 
@@ -143,6 +144,12 @@ Widget renderBrandList(List companies, int index) {
                   context,
                   MaterialPageRoute(
                     builder: (context) => Scaffold(
+                      appBar: MediaQuery.of(context).size.width > 1024
+                          ? PreferredSize(
+                              preferredSize: Size.fromHeight(60),
+                              child: AuthHeaderForPC(),
+                            )
+                          : null,
                       body: ChangeNotifierProvider<CompanyInfoProvider>(
                         create: (context) => CompanyInfoProvider(),
                         child: InfoPage(companyName!, companyList!),

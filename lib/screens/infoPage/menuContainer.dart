@@ -22,9 +22,13 @@ class MenuContainer extends StatelessWidget {
               height: MediaQuery.of(context).size.height - 270,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  renderMenuContainerLeft(brand: provider.selectedCompany),
+                  Flexible(
+                    flex: 35,
+                    child: renderMenuContainerLeft(
+                        brand: provider.selectedCompany),
+                  ),
                   Flexible(
                     flex: 30,
                     child: Container(),
@@ -44,21 +48,18 @@ class MenuContainer extends StatelessWidget {
 }
 
 Widget renderMenuContainerLeft({required brand}) {
-  return Flexible(
-    flex: 35,
-    child: SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          menuButtonLeft(brandName: brand, buttonText: 'LIVE'),
-          menuButtonLeft(brandName: brand, buttonText: 'project'),
-          menuButtonLeft(brandName: brand, buttonText: 'factsheet'),
-          menuButtonLeft(brandName: null, buttonText: 'youtube record'),
-          menuButtonLeft(brandName: null, buttonText: 'youtube live'),
-          menuButtonLeft(brandName: null, buttonText: 'zoom live'),
-          menuButtonLeft(brandName: null, buttonText: 'skype live'),
-        ],
-      ),
+  return SingleChildScrollView(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        menuButtonLeft(brandName: brand, buttonText: 'LIVE'),
+        menuButtonLeft(brandName: brand, buttonText: 'project'),
+        menuButtonLeft(brandName: brand, buttonText: 'factsheet'),
+        menuButtonLeft(brandName: null, buttonText: 'youtube record'),
+        menuButtonLeft(brandName: null, buttonText: 'youtube live'),
+        menuButtonLeft(brandName: null, buttonText: 'zoom live'),
+        menuButtonLeft(brandName: null, buttonText: 'skype live'),
+      ],
     ),
   );
 }
@@ -69,54 +70,59 @@ class MenuContainerRight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CompanyInfoProvider>(
-      builder: (context, value, child) =>
-          value.companyProjectList != null && value.propertyNameList == null
-              ? ListView.builder(
-                  itemCount: value.companyProjectList!.length,
-                  itemBuilder: (BuildContext context, index) {
-                    Map projectData = value.companyProjectList![index];
-                    String key = projectData.keys.elementAt(0);
-                    return projectButtonRight(
-                        buttonText: key,
-                        projectData: projectData,
-                        projectSelectionFunc: value.selectProject,
-                        bg: false,
-                        googleMap: false,
-                        showPropertyFactSheet: false);
-                  },
-                )
-              : ListView.builder(
-                  itemCount: value.propertyNameList!.length + 2,
-                  itemBuilder: (BuildContext context, index) {
-                    return index == 0
-                        ? projectButtonRight(
-                            buttonText: 'google map',
-                            projectData: null,
-                            projectSelectionFunc: null,
+    return Container(
+      child: Center(
+        child: Consumer<CompanyInfoProvider>(
+          builder: (context, value, child) =>
+              value.companyProjectList != null && value.propertyNameList == null
+                  ? ListView.builder(
+                      itemCount: value.companyProjectList!.length,
+                      itemBuilder: (BuildContext context, index) {
+                        Map projectData = value.companyProjectList![index];
+                        String key = projectData.keys.elementAt(0);
+                        return projectButtonRight(
+                            buttonText: key,
+                            projectData: projectData,
+                            projectSelectionFunc: value.selectProject,
                             bg: false,
-                            googleMap: true,
-                            showPropertyFactSheet: false,
-                          )
-                        : index == 1
+                            googleMap: false,
+                            showPropertyFactSheet: false);
+                      },
+                    )
+                  : ListView.builder(
+                      itemCount: value.propertyNameList!.length + 2,
+                      itemBuilder: (BuildContext context, index) {
+                        return index == 0
                             ? projectButtonRight(
-                                buttonText: value.selectedProject,
-                                projectData: null,
-                                projectSelectionFunc: null,
-                                bg: true,
-                                googleMap: false,
-                                showPropertyFactSheet: false,
-                              )
-                            : projectButtonRight(
-                                buttonText: value.propertyNameList![index - 2],
+                                buttonText: 'google map',
                                 projectData: null,
                                 projectSelectionFunc: null,
                                 bg: false,
-                                googleMap: false,
-                                showPropertyFactSheet: true,
-                              );
-                  },
-                ),
+                                googleMap: true,
+                                showPropertyFactSheet: false,
+                              )
+                            : index == 1
+                                ? projectButtonRight(
+                                    buttonText: value.selectedProject,
+                                    projectData: null,
+                                    projectSelectionFunc: null,
+                                    bg: true,
+                                    googleMap: false,
+                                    showPropertyFactSheet: false,
+                                  )
+                                : projectButtonRight(
+                                    buttonText:
+                                        value.propertyNameList![index - 2],
+                                    projectData: null,
+                                    projectSelectionFunc: null,
+                                    bg: false,
+                                    googleMap: false,
+                                    showPropertyFactSheet: true,
+                                  );
+                      },
+                    ),
+        ),
+      ),
     );
   }
 }
