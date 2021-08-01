@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:live/provider/authenticationProvider.dart';
+import 'package:live/screens/authenticate/signup/shared.dart';
 import 'package:live/screens/authenticate/signup/signupForm.dart';
 import 'package:live/screens/loading.dart';
 import 'package:live/shared/constants.dart';
@@ -13,36 +14,97 @@ class SignUpPage extends StatelessWidget {
     return Consumer<AuthenticationProvider>(
       builder: (context, provider, child) => provider.signupLoading
           ? Loading()
-          : Container(
-              width: size.width,
-              height: size.height,
-              color: Color(formBgColor),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    SafeArea(
-                      child: Container(
-                        height: 80,
-                        width: double.infinity,
-                        child: Logo(),
+          : LayoutBuilder(
+              builder: (context, constrains) {
+                if (constrains.maxWidth < 600) {
+                  return Container(
+                    width: size.width,
+                    height: size.height,
+                    color: Color(formBgColor),
+                    child: Center(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: <Widget>[
+                            SafeArea(
+                              child: Container(
+                                height: 80,
+                                width: double.infinity,
+                                child: Logo(),
+                              ),
+                            ),
+                            Text(
+                              'Registration',
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  color: Colors.white,
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.bold),
+                            ), // logo container
+                            Container(
+                              width: size.width * .90,
+                              child: RenderSignUpForm(),
+                            ),
+                            signupFooter(provider),
+                          ],
+                        ),
                       ),
                     ),
-                    Text(
-                      'Registration',
-                      style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Colors.white,
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.bold),
-                    ), // logo container
-                    Container(
-                      width: size.width * .90,
-                      child: RenderSignUpForm(),
+                  );
+                } else if (constrains.maxWidth > 600 &&
+                    constrains.maxWidth < 1000) {
+                  return Container(
+                    width: size.width,
+                    height: size.height,
+                    color: Color(formBgColor),
+                    child: Center(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: <Widget>[
+                            Logo(),
+                            Text(
+                              'Registration',
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  color: Colors.white,
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Container(
+                              width: 600,
+                              child: RenderSignUpForm(),
+                            ),
+                            signupFooter(provider),
+                          ],
+                        ),
+                      ),
                     ),
-                    signupFooter(provider),
-                  ],
-                ),
-              ),
+                  );
+                } else {
+                  return Column(
+                    children: [
+                      AuthHeaderForPC(),
+                      Container(
+                        height: size.height - 60,
+                        color: Color(formBgColor),
+                        child: Center(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 600,
+                                  child: RenderSignUpForm(),
+                                ),
+                                signupFooter(provider),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+              },
             ),
     );
   }
