@@ -37,7 +37,7 @@ dynamic nameValidator(String value) {
 dynamic phoneNoValidator(value) {
   if (value.isEmpty) {
     return "you must provide your phone number.";
-  } else if (!RegExp(r'^(?:[+0]9)?[0-9]{11}$').hasMatch(value)) {
+  } else if (!RegExp(r'^(?:[+0]9)?[0-9]{10}$').hasMatch(value)) {
     return "Your phone number is not valid.";
   } else {
     return null;

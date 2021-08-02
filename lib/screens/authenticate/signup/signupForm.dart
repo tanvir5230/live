@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:live/provider/authenticationProvider.dart';
 import 'package:live/screens/authenticate/Languages.dart';
 import 'package:live/screens/authenticate/validators.dart';
@@ -36,16 +37,38 @@ class RenderSignUpForm extends StatelessWidget {
 
             SizedBox(height: 10.0),
 
-            TextFormField(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (value) {
-                return phoneNoValidator(value);
-              },
-              onChanged: (value) => provider.changePhone(value),
-              style: ctextInputFieldStyle,
-              decoration:
-                  textInputField.copyWith(hintText: 'Your Phone Number'),
-            ), //your phone number
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white10,
+                borderRadius: BorderRadius.all(Radius.circular(cborderRadius)),
+                border: Border.all(color: Colors.white70, width: 2.0),
+              ),
+              child: IntlPhoneField(
+                autoValidate: true,
+                decoration: InputDecoration(
+                  hintText: 'your phone number',
+                  hintStyle: TextStyle(color: Colors.white54),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.redAccent),
+                  ),
+                  counterStyle: TextStyle(color: Colors.white),
+                ),
+                style: TextStyle(color: Colors.white),
+                countryCodeTextColor: Colors.white,
+                dropDownArrowColor: Colors.white,
+                textAlign: TextAlign.center,
+                initialCountryCode: 'QA',
+                onChanged: (phone) {
+                  provider.changePhone(phone.number.toString());
+                },
+                onCountryChanged: (phone) {
+                  provider.changeCountryCode(phone.countryCode.toString());
+                },
+              ),
+            ),
 
             SizedBox(height: 10.0),
 

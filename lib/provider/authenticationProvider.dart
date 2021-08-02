@@ -82,7 +82,8 @@ class AuthenticationProvider extends ChangeNotifier {
 
   //registered users information
   String name = '';
-  var phone;
+  String phoneNo = '';
+  String countryCode = '+974';
   String confirmPassword = '';
   dynamic currentSelectedLanguage;
   bool showDropdownError = false;
@@ -99,9 +100,13 @@ class AuthenticationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changePhone(dynamic phone) {
-    this.phone = phone;
+  void changePhone(String phone) {
+    this.phoneNo = phone;
     notifyListeners();
+  }
+
+  void changeCountryCode(String code) {
+    this.countryCode = code;
   }
 
   void passConfirmation(String pass) {
@@ -155,7 +160,7 @@ class AuthenticationProvider extends ChangeNotifier {
     try {
       await users.doc(uid).set({
         'name': name,
-        'phone_number': phone,
+        'phone_number': countryCode + phoneNo,
         'email': email,
         'language': currentSelectedLanguage,
         'photoUrl': imageUrl,
