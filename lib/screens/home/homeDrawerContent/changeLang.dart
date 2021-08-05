@@ -16,6 +16,12 @@ class _ChangeLanguageWidgetState extends State<ChangeLanguageWidget> {
   dynamic currentSelectedLanguage;
   String error = '';
   bool loading = false;
+  void changeLoading() {
+    setState(() {
+      loading = !loading;
+    });
+  }
+
   void changeError(String err) {
     setState(() {
       error = err;
@@ -41,9 +47,10 @@ class _ChangeLanguageWidgetState extends State<ChangeLanguageWidget> {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 10.0),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                        border:
-                            Border.all(color: Color(cborderColor), width: 2.0)),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                      border:
+                          Border.all(color: Color(cborderColor), width: 2.0),
+                    ),
                     child: DropdownButton(
                       dropdownColor: Color(0xFF000000),
                       iconSize: 50,
@@ -103,18 +110,22 @@ class _ChangeLanguageWidgetState extends State<ChangeLanguageWidget> {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.red.shade900,
                       ),
+                      child: Text('change the language'),
                       onPressed: () async {
                         if (currentSelectedLanguage != null) {
+                          changeLoading();
                           Map<String, dynamic> result = await FirestoreService()
                               .changeLanguage(
                                   AuthService().getCurrentUser()!.uid,
                                   '$currentSelectedLanguage');
-                          result['success']
-                              ? widget.popWidget()
-                              : changeError(result['error']);
+                          if (result['success']) {
+                            widget.popWidget();
+                          } else {
+                            changeLoading();
+                            changeError(result['error']);
+                          }
                         }
                       },
-                      child: Text('change the language'),
                     ),
                   ),
                   Text(
