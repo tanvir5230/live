@@ -10,7 +10,6 @@ List<String> languages = [
   "Burmese",
   "Bosnian",
   "Brazilian",
-  "Bulgarian",
   "Catalan",
   "Cantonese",
   "Croatian",

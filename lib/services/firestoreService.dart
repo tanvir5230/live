@@ -5,15 +5,9 @@ class FirestoreService {
   //refernce to users collection
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 
-  //check a user whether he is admin or not
-  Future user(String userId) async {
-    try {
-      final DocumentSnapshot snapshot = await users.doc(userId).get();
-      Map<String, dynamic> userData = snapshot.data() as Map<String, dynamic>;
-      return userData;
-    } catch (e) {
-      return null;
-    }
+  //return a user's data
+  Stream<DocumentSnapshot> user(String userId) {
+    return users.doc(userId).snapshots();
   }
 
   //reference to companies collection
@@ -42,8 +36,25 @@ class FirestoreService {
       await companies.add(companyModel.company());
     } on FirebaseException catch (e) {
       print(e.toString());
-    } catch (e) {
-      print(e.toString());
+    }
+  }
+
+  Future<Map<String, dynamic>> changeLanguage(
+      String userId, String language) async {
+    try {
+      await users.doc(userId).update({'language': language});
+      return {'success': true, 'error': ''};
+    } on FirebaseException catch (e) {
+      return {'success': false, 'error': e.code};
+    }
+  }
+
+  Future<Map<String, dynamic>> changePhone(String userId, String phone) async {
+    try {
+      await users.doc(userId).update({'phone_number': phone});
+      return {'success': true, 'error': ''};
+    } on FirebaseException catch (e) {
+      return {'success': false, 'error': e.code};
     }
   }
 }

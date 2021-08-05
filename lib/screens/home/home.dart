@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:live/provider/HomepageProvider.dart';
 import 'package:live/screens/authenticate/signup/shared.dart';
 import 'package:live/screens/home/filterWidget.dart';
+import 'package:live/screens/home/homeDrawer.dart';
 import 'package:live/screens/home/renderBrands.dart';
 import 'package:live/screens/home/searchWidget.dart';
-import 'package:live/services/authenticationService.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
@@ -16,10 +17,10 @@ class Home extends StatelessWidget {
     return SafeArea(
       child: Consumer<HomepageProvider>(
         builder: (context, provider, child) {
-          final user = provider.user;
-          if (user == null) {
-            provider.loadUser();
-          }
+          // final user = provider.user;
+          // if (user == null) {
+          //   provider.loadUser();
+          // }
           return Scaffold(
             appBar: MediaQuery.of(context).size.width > 1000
                 ? PreferredSize(
@@ -33,7 +34,7 @@ class Home extends StatelessWidget {
                   )
                 : myAppBar(),
             drawer: Drawer(
-              child: HomeDrawerContent(user: user),
+              child: HomeDrawerContent(),
             ),
             backgroundColor: Colors.grey.shade100,
             body: LayoutBuilder(
@@ -133,141 +134,4 @@ AppBar myAppBar() {
       ),
     ),
   );
-}
-
-class HomeDrawerContent extends StatelessWidget {
-  const HomeDrawerContent({Key? key, required this.user}) : super(key: key);
-
-  final user;
-  @override
-  Widget build(BuildContext context) {
-    return user != null
-        ? Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  height: 150,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.greenAccent,
-                        Colors.blueAccent,
-                      ],
-                    ),
-                  ),
-                  child: Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 80,
-                          height: 80,
-                          child: CircleAvatar(
-                            radius: 30.0,
-                            backgroundImage: NetworkImage(user['photoUrl']),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(user['name'].toString().toUpperCase()),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 10,
-                      ),
-                      ListTile(
-                        title: Text('language: ${user['language']}'),
-                        trailing: IconButton(
-                          icon: Icon(
-                            Icons.edit,
-                            color: Colors.blue,
-                          ),
-                          onPressed: () {},
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      ListTile(
-                        title: Text('phone no: ${user["phone_number"]}'),
-                        trailing: IconButton(
-                          icon: Icon(
-                            Icons.edit_rounded,
-                            color: Colors.blue,
-                          ),
-                          onPressed: () {},
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  ),
-                ),
-
-                //########### sign out button ##############//
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.red.shade900,
-                  ),
-                  onPressed: () async {
-                    return await showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: CupertinoAlertDialog(
-                            title: Text(
-                              "Logout",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            content: Text('Are you sure to log out?'),
-                            actions: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  AuthService().signOut();
-                                  Navigator.pop(context);
-                                },
-                                child: Text('confirm'),
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text('No'),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  child: Text('sign out'),
-                ),
-                //########### sign out button ##############//
-
-                //########### admin button ##############//
-                user['user_type'] == 'admin'
-                    ? ElevatedButton(
-                        onPressed: () {},
-                        child: Text('admin panel'),
-                      )
-                    : Text(''),
-                //########### admin button ##############//
-              ],
-            ),
-          )
-        : Container();
-  }
 }
