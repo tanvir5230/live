@@ -5,5 +5,8 @@ final Map<String, String> links = {
   'twitter': 'https://twitter.com/atworldgroups',
   'instagram': 'https://www.instagram.com/atworldgroups',
   'aboutus': 'https://aat.world/about-us',
-  'contactus': 'atworld2021@gmail.com'
+  'contactus': 'atworld2021@gmail.com',
+  'android':
+      'https://play.google.com/store/apps/details?id=com.atradar.atradar',
+  'ios': '',
 };

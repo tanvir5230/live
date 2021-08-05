@@ -31,7 +31,7 @@ class AuthHeaderForPC extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () {
-                    _launchURL('mailto:${links['contactus']}');
+                    launchURL('mailto:${links['contactus']}');
                   },
                 ),
                 SizedBox(
@@ -43,7 +43,7 @@ class AuthHeaderForPC extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () {
-                    _launchURL('${links['aboutus']}');
+                    launchURL('${links['aboutus']}');
                   },
                 )
               ],
@@ -55,5 +55,5 @@ class AuthHeaderForPC extends StatelessWidget {
   }
 }
 
-void _launchURL(_url) async =>
+void launchURL(_url) async =>
     await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';

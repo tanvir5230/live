@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:live/metadata.dart';
 import 'package:live/provider/companyInfoProvider.dart';
+import 'package:live/screens/authenticate/signup/shared.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Footer extends StatelessWidget {
   const Footer({Key? key}) : super(key: key);
@@ -71,34 +71,31 @@ Widget socialButtons() {
     children: [
       IconButton(
         onPressed: () {
-          _launchURL(links['facebook']);
+          launchURL(links['facebook']);
         },
         icon: Image.asset('assets/images/facebook.png'),
       ),
       IconButton(
         onPressed: () {
-          _launchURL(links['youtube']);
+          launchURL(links['youtube']);
         },
         icon: Image.asset('assets/images/youtube.png'),
       ),
       IconButton(
         onPressed: () {
-          _launchURL(links['twitter']);
+          launchURL(links['twitter']);
         },
         icon: Image.asset('assets/images/twitter.png'),
       ),
       IconButton(
         onPressed: () {
-          _launchURL(links['instagram']);
+          launchURL(links['instagram']);
         },
         icon: Image.asset('assets/images/instagram.png'),
       ),
     ],
   );
 }
-
-void _launchURL(_url) async =>
-    await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
 
 Widget rightButtons() {
   return Column(

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:live/provider/HomepageProvider.dart';
 import 'package:live/screens/authenticate/signup/shared.dart';
 import 'package:live/screens/home/filterWidget.dart';
-import 'package:live/screens/home/homeDrawer.dart';
+import 'package:live/screens/home/homeDrawerContent/homeDrawer.dart';
 import 'package:live/screens/home/renderBrands.dart';
 import 'package:live/screens/home/searchWidget.dart';
 import 'package:provider/provider.dart';
