@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:live/metadata.dart';
 import 'package:live/provider/companyInfoProvider.dart';
+import 'package:live/screens/authenticate/signup/shared.dart';
 import 'package:outline_gradient_button/outline_gradient_button.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +29,8 @@ class MenuContainer extends StatelessWidget {
                   Flexible(
                     flex: 35,
                     child: renderMenuContainerLeft(
-                        brand: provider.selectedCompany),
+                      brand: provider.selectedCompany,
+                    ),
                   ),
                   Flexible(
                     flex: MediaQuery.of(context).size.width > 900 ? 15 : 30,
@@ -254,8 +257,16 @@ Widget menuButtonLeft({required String? brandName, required buttonText}) {
               builder: (context, provider, child) {
                 return OutlineGradientButton(
                   onTap: () {
-                    if (buttonText.contains('factsheet')) {
+                    if (buttonText == 'factsheet') {
                       provider.changeProjectFSStatus();
+                    } else if (buttonText == 'youtube live') {
+                      launchURL(links['youtube_live']);
+                    } else if (buttonText == 'youtube record') {
+                      launchURL(links['youtube']);
+                    } else if (buttonText == 'zoom live') {
+                      launchURL(links['zoom']);
+                    } else if (buttonText == 'skype live') {
+                      launchURL(links['skype']);
                     }
                   },
                   child: SingleChildScrollView(

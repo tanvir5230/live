@@ -32,7 +32,7 @@ class FilterSection extends StatelessWidget {
           {
             'name': 'agent',
             'enabled': provider.enabledAgentFilter,
-            'color': 0xFF8a8a8a
+            'color': 0xFFFFD54F
           },
           {
             'name': 'agencies',

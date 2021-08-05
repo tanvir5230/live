@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:live/metadata.dart';
+import 'package:live/screens/authenticate/signup/shared.dart';
 import 'package:live/services/authenticationService.dart';
 
 class Menu extends StatefulWidget {
@@ -55,14 +57,18 @@ class _MenuState extends State<Menu> {
                     padding: EdgeInsets.all(5.0),
                     color: Colors.black,
                     iconSize: 30,
-                    onPressed: () {},
+                    onPressed: () {
+                      launchURL(links['phone']);
+                    },
                     icon: Image.asset('assets/images/phone.png'),
                   ),
                   IconButton(
                     padding: EdgeInsets.all(5.0),
                     color: Colors.black,
                     iconSize: 30,
-                    onPressed: () {},
+                    onPressed: () {
+                      launchURL(links['whatsapp']);
+                    },
                     icon: Image.asset('assets/images/whatsapp.png'),
                   ),
                   IconButton(

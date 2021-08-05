@@ -4,49 +4,73 @@ import 'package:live/provider/companyInfoProvider.dart';
 import 'package:live/screens/authenticate/signup/shared.dart';
 import 'package:provider/provider.dart';
 
-class Footer extends StatelessWidget {
+class Footer extends StatefulWidget {
   const Footer({Key? key}) : super(key: key);
 
   @override
+  _FooterState createState() => _FooterState();
+}
+
+class _FooterState extends State<Footer> {
+  bool hideFooter = false;
+  void showOrHide() {
+    setState(() {
+      hideFooter = !hideFooter;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        color: Colors.black.withOpacity(.5),
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        width: double.infinity,
-        height: 100,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Flexible(
-              flex: 2,
-              child: leftButtons(),
-            ),
-            Flexible(
-              flex: 6,
-              child: Stack(
-                clipBehavior: Clip.none,
-                alignment: Alignment.bottomCenter,
-                children: [
-                  socialButtons(),
-                  Positioned(
-                    bottom: 40,
-                    child: Icon(
-                      Icons.qr_code_2_outlined,
-                      size: 50,
-                      color: Colors.white,
-                    ),
+    return Container(
+      color: hideFooter ? null : Colors.black.withOpacity(.5),
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      width: double.infinity,
+      height: 100,
+      child: hideFooter
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                SizedBox(
+                  width: 150,
+                  height: 40,
+                  child: ElevatedButton(
+                    child: Text('show'),
+                    onPressed: showOrHide,
                   ),
-                ],
-              ),
+                ),
+              ],
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Flexible(
+                  flex: 2,
+                  child: leftButtons(),
+                ),
+                Flexible(
+                  flex: 6,
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      socialButtons(),
+                      Positioned(
+                        bottom: 40,
+                        child: Icon(
+                          Icons.qr_code_2_outlined,
+                          size: 50,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Flexible(
+                  flex: 2,
+                  child: rightButtons(showOrHide),
+                ),
+              ],
             ),
-            Flexible(
-              flex: 2,
-              child: rightButtons(),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
@@ -77,9 +101,9 @@ Widget socialButtons() {
       ),
       IconButton(
         onPressed: () {
-          launchURL(links['youtube']);
+          launchURL(links['linkedin']);
         },
-        icon: Image.asset('assets/images/youtube.png'),
+        icon: Image.asset('assets/images/linkedin.png'),
       ),
       IconButton(
         onPressed: () {
@@ -97,14 +121,14 @@ Widget socialButtons() {
   );
 }
 
-Widget rightButtons() {
+Widget rightButtons(Function hideFooter) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       cDivider(),
       CtextButton('reset'),
       cDivider(),
-      CtextButton('hide'),
+      CtextButton('hide', hideFooter),
       cDivider(),
     ],
   );
@@ -112,7 +136,8 @@ Widget rightButtons() {
 
 class CtextButton extends StatelessWidget {
   final String text;
-  const CtextButton(this.text);
+  final Function? showOrHide;
+  const CtextButton(this.text, [this.showOrHide]);
 
   @override
   Widget build(BuildContext context) {
@@ -127,6 +152,9 @@ class CtextButton extends StatelessWidget {
             if (text == 'reset') {
               provider.reset();
             }
+            if (text == 'hide') {
+              showOrHide!();
+            }
           },
           style: TextButton.styleFrom(
             padding: EdgeInsets.zero,
@@ -134,10 +162,11 @@ class CtextButton extends StatelessWidget {
           child: Text(
             text.toUpperCase(),
             style: TextStyle(
-                color: Colors.white,
-                letterSpacing: 1.5,
-                fontSize: 16,
-                fontWeight: FontWeight.bold),
+              color: Colors.white,
+              letterSpacing: 1.5,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
