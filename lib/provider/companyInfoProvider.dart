@@ -5,7 +5,24 @@ class CompanyInfoProvider extends ChangeNotifier {
   double headingFontsize = 14;
   double normalFontSize = 11;
   double smallFontSize = 9;
+  double heightOfInfoButton = 40.0;
   String bgImage = 'assets/images/background1.jpg';
+
+  void scaleDefault() {
+    headingFontsize = 14;
+    normalFontSize = 11;
+    smallFontSize = 9;
+    heightOfInfoButton = 40;
+    notifyListeners();
+  }
+
+  void scaleDouble() {
+    headingFontsize = 18;
+    normalFontSize = 22;
+    smallFontSize = 18;
+    heightOfInfoButton = 60;
+    notifyListeners();
+  }
 
   List? _companyPojectList;
   String? _selectedCompany;

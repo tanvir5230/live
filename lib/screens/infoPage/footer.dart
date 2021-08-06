@@ -155,6 +155,36 @@ class CtextButton extends StatelessWidget {
             if (text == 'hide') {
               showOrHide!();
             }
+            if (text == 'scale') {
+              showBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return Container(
+                    height: 100,
+                    width: double.infinity,
+                    color: Colors.black87,
+                    child: Column(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            provider.scaleDefault();
+                            Navigator.pop(context);
+                          },
+                          child: Text('Scale 1x'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            provider.scaleDouble();
+                            Navigator.pop(context);
+                          },
+                          child: Text('Scale 2x'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            }
           },
           style: TextButton.styleFrom(
             padding: EdgeInsets.zero,

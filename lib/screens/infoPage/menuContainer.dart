@@ -142,19 +142,9 @@ Widget projectButtonRight(
           child: Stack(
             clipBehavior: Clip.none,
             children: [
-              Positioned(
-                left: -4,
-                top: 16,
-                height: 10,
-                child: Icon(
-                  Icons.circle,
-                  color: Colors.white,
-                  size: 10,
-                ),
-              ),
               Container(
                 width: double.infinity,
-                height: 40,
+                height: provider.heightOfInfoButton,
                 decoration: bg
                     ? BoxDecoration(
                         gradient: LinearGradient(colors: [
@@ -173,41 +163,44 @@ Widget projectButtonRight(
                       provider.selectProperty(buttonText);
                     }
                   },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(width: 10),
-                      googleMap
-                          ? Row(
-                              children: [
-                                Image.asset(
-                                  'assets/images/map.png',
-                                  width: 20,
-                                  height: 30,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  buttonText.toString().toUpperCase(),
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: provider.normalFontSize,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(width: 10),
+                        googleMap
+                            ? Row(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/map.png',
+                                    width: 20,
+                                    height: 30,
                                   ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    buttonText.toString().toUpperCase(),
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: provider.normalFontSize,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Text(
+                                buttonText.toString().toUpperCase(),
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: provider.normalFontSize,
                                 ),
-                              ],
-                            )
-                          : Text(
-                              buttonText.toString().toUpperCase(),
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: provider.normalFontSize,
                               ),
-                            ),
-                    ],
+                      ],
+                    ),
                   ),
                   gradient: LinearGradient(
                     colors: [
@@ -218,6 +211,16 @@ Widget projectButtonRight(
                     end: Alignment.centerLeft,
                   ),
                   strokeWidth: 2,
+                ),
+              ),
+              Positioned(
+                left: -4,
+                top: provider.heightOfInfoButton > 40 ? 27 : 16,
+                height: 10,
+                child: Icon(
+                  Icons.circle,
+                  color: Colors.white,
+                  size: 10,
                 ),
               ),
             ],
@@ -242,83 +245,81 @@ Widget manInTheMiddle() {
 }
 
 Widget menuButtonLeft({required String? brandName, required buttonText}) {
-  return Padding(
-    padding: const EdgeInsets.only(bottom: 6.0),
-    child: Transform(
-      transform: Matrix4.rotationZ(1 / 180 * pi),
-      alignment: Alignment.center,
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          Container(
-            width: double.infinity,
-            height: 40,
-            child: Consumer<CompanyInfoProvider>(
-              builder: (context, provider, child) {
-                return OutlineGradientButton(
-                  onTap: () {
-                    if (buttonText == 'factsheet') {
-                      provider.changeProjectFSStatus();
-                    } else if (buttonText == 'youtube live') {
-                      launchURL(links['youtube_live']);
-                    } else if (buttonText == 'youtube record') {
-                      launchURL(links['youtube']);
-                    } else if (buttonText == 'zoom live') {
-                      launchURL(links['zoom']);
-                    } else if (buttonText == 'skype live') {
-                      launchURL(links['skype']);
-                    }
-                  },
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Text(
-                          brandName != null
-                              ? brandName +
-                                  ' ' +
-                                  buttonText.toString().toUpperCase()
-                              : buttonText.toString().toUpperCase(),
-                          textAlign: TextAlign.end,
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(.9),
-                            fontSize: provider.normalFontSize,
-                          ),
+  return Consumer<CompanyInfoProvider>(builder: (context, provider, child) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6.0),
+      child: Transform(
+        transform: Matrix4.rotationZ(1 / 180 * pi),
+        alignment: Alignment.center,
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Container(
+              width: double.infinity,
+              height: provider.heightOfInfoButton,
+              child: OutlineGradientButton(
+                onTap: () {
+                  if (buttonText == 'factsheet') {
+                    provider.changeProjectFSStatus();
+                  } else if (buttonText == 'youtube live') {
+                    launchURL(links['youtube_live']);
+                  } else if (buttonText == 'youtube record') {
+                    launchURL(links['youtube']);
+                  } else if (buttonText == 'zoom live') {
+                    launchURL(links['zoom']);
+                  } else if (buttonText == 'skype live') {
+                    launchURL(links['skype']);
+                  }
+                },
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Text(
+                        brandName != null
+                            ? brandName +
+                                ' ' +
+                                buttonText.toString().toUpperCase()
+                            : buttonText.toString().toUpperCase(),
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(.9),
+                          fontSize: provider.normalFontSize,
                         ),
-                        SizedBox(
-                          width: 4,
-                        ),
-                      ],
-                    ),
-                  ),
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.white.withOpacity(.1),
-                      Colors.white.withOpacity(.9),
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
                     ],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
                   ),
-                  strokeWidth: 2,
-                );
-              },
+                ),
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.white.withOpacity(.1),
+                    Colors.white.withOpacity(.9),
+                  ],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
+                strokeWidth: 2,
+              ),
             ),
-          ),
-          Positioned(
-            right: -4,
-            top: 16,
-            height: 10,
-            child: Icon(
-              Icons.circle,
-              color: buttonText.toString().toLowerCase() == 'project'
-                  ? Colors.green
-                  : Colors.white,
-              size: 10,
+            Positioned(
+              right: -4,
+              top: provider.heightOfInfoButton > 40 ? 27 : 16,
+              height: 10,
+              child: Icon(
+                Icons.circle,
+                color: buttonText.toString().toLowerCase() == 'project'
+                    ? Colors.green
+                    : Colors.white,
+                size: 10,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  });
 }
