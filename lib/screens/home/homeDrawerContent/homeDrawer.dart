@@ -8,11 +8,10 @@ import 'package:live/screens/home/homeDrawerContent/changeLang.dart';
 import 'package:live/screens/home/homeDrawerContent/changePhone.dart';
 import 'package:live/screens/home/homeDrawerContent/rateApp.dart';
 import 'package:live/screens/home/homeDrawerContent/signOutBtn.dart';
-import 'package:live/screens/infoPage/footer.dart';
 import 'package:live/services/authenticationService.dart';
 import 'package:live/services/firestoreService.dart';
 import 'package:live/shared/constants.dart';
-import 'dart:io' show Platform;
+import 'package:os_detect/os_detect.dart' as Platform;
 
 class HomeDrawerContent extends StatefulWidget {
   const HomeDrawerContent({Key? key}) : super(key: key);
@@ -120,28 +119,29 @@ class _HomeDrawerContentState extends State<HomeDrawerContent> {
                               )
                             : SizedBox(),
 
-                        //#### social buttons #####//
+                        //#### Download_app_button #####//
                         kIsWeb
                             ? Container(
-                                margin: EdgeInsets.only(bottom: 10.0),
-                                child: socialButtons(),
+                                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                                margin: EdgeInsets.only(bottom: 5.0),
+                                child: downloadApp(),
                               )
                             : Container(),
-                        //#### social buttons #####//
+                        //#### Download_app_button #####//
 
                         //######### about us ######//
                         aboutUsButton(),
                         //######### about us ######//
 
                         SizedBox(
-                          height: 10,
+                          height: 5,
                         ),
 
                         //######### contact us ######//
                         contactUsButton(),
                         //######### contact us ######//
 
-                        //######### share app ######//
+                        //######### share app (not available in web)######//
                         shareAppButton(),
                         //######### share app ######//
 
@@ -317,6 +317,31 @@ Widget userPhoneWidget({
           : Container(),
     ],
   );
+}
+
+Widget downloadApp() {
+  return Platform.isAndroid
+      ? SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.deepPurple,
+            ),
+            onPressed: () {
+              launchURL(links['android']);
+            },
+            child: Text('Download the app'),
+          ),
+        )
+      : SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: () {
+              launchURL(links['ios']);
+            },
+            child: Text('Download the app'),
+          ),
+        );
 }
 
 Widget aboutUsButton() {

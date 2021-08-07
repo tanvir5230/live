@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class HomepageProvider extends ChangeNotifier {
 //this will all dropdown item for filter section such as countries, cities etc. after getting company data from firebase
@@ -37,6 +38,7 @@ class HomepageProvider extends ChangeNotifier {
   String searchedBrandName = '';
   void brandSearch(String value) {
     searchedBrandName = value;
+    print(searchedBrandName);
     notifyListeners();
   }
 
@@ -108,5 +110,55 @@ class HomepageProvider extends ChangeNotifier {
   void cancelAgenciesFilter() {
     enabledAgenciesFilter = false;
     notifyListeners();
+  }
+
+  //##### voice input related ####//
+  bool showVoiceWidget = false;
+  void showOrHideVoiceWidget() {
+    showVoiceWidget = !showVoiceWidget;
+    notifyListeners();
+  }
+
+  stt.SpeechToText speechToText = stt.SpeechToText();
+  bool isListening = false;
+  String voiceInputText = '';
+  void changeVoiceText(String value) {
+    voiceInputText = value;
+    notifyListeners();
+  }
+
+  void resetVoiceSearch() {
+    voiceInputText = '';
+    brandSearch(voiceInputText);
+    notifyListeners();
+  }
+
+  void stopVoiceSearch() {
+    isListening = false;
+    speechToText.stop();
+    notifyListeners();
+  }
+
+  void listen() async {
+    if (!isListening) {
+      bool available = await speechToText.initialize(
+        onStatus: (val) => print('onStatus: $val'),
+        onError: (val) => print('onError: $val errror'),
+      );
+      if (available) {
+        isListening = true;
+        notifyListeners();
+        speechToText.listen(onResult: (val) {
+          voiceInputText = val.recognizedWords;
+          brandSearch(voiceInputText);
+          notifyListeners();
+        });
+        Future.delayed(const Duration(seconds: 5), () {
+          stopVoiceSearch();
+        });
+      }
+    } else {
+      stopVoiceSearch();
+    }
   }
 }

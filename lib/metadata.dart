@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:os_detect/os_detect.dart' as Platform;
 
 final Map<String, String> links = {
   'facebook': 'https://www.facebook.com/atworldgroups',
@@ -12,9 +13,9 @@ final Map<String, String> links = {
       'https://play.google.com/store/apps/details?id=com.atradar.atradar',
   'ios': '',
   'phone': 'tel://+8801521407975',
-  'whatsapp': kIsWeb
+  'whatsapp': kIsWeb && Platform.isBrowser
       ? 'https://web.whatsapp.com/send?phone=+8801521407975'
-      : 'whatsapp://send?phone=+8801521407975',
+      : 'https://api.whatsapp.com/send?phone=+8801521407975',
   'youtube_live':
       'https://www.youtube.com/watch?v=Aczhmyn3_jc&ab_channel=SOMOYTV',
   'zoom':

@@ -1,4 +1,4 @@
-package com.example.live
+package world.aat.live
 
 import io.flutter.embedding.android.FlutterActivity
 

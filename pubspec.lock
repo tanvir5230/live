@@ -268,6 +268,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  os_detect:
+    dependency: "direct main"
+    description:
+      name: os_detect
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   outline_gradient_button:
     dependency: "direct main"
     description:
