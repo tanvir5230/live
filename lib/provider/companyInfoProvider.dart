@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class CompanyInfoProvider extends ChangeNotifier {
   //design related (for all screens).

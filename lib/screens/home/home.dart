@@ -37,37 +37,40 @@ class Home extends StatelessWidget {
             body: LayoutBuilder(
               builder: (context, constrains) {
                 if (constrains.maxWidth < 1000) {
-                  return SingleChildScrollView(
-                    child: Stack(
-                      children: [
-                        Container(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(20, 0, 0, 10),
-                                child: FilterSection(),
-                              ),
-                              Padding(
+                  return Stack(
+                    children: [
+                      Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
+                              child: FilterSection(),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: SearchBox(),
+                            ),
+                            SingleChildScrollView(
+                              child: Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 20),
-                                child: SearchBox(),
-                              ),
-                              SingleChildScrollView(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
+                                child: Container(
+                                  padding: EdgeInsets.only(top: 5.0),
+                                  height:
+                                      MediaQuery.of(context).size.height - 180,
                                   child: RenderBrands(),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        provider.showVoiceWidget
-                            ? voiceInputContainer(provider)
-                            : Container(),
-                      ],
-                    ),
+                      ),
+                      provider.showVoiceWidget
+                          ? voiceInputContainer(provider)
+                          : Container(),
+                    ],
                   );
                 } else {
                   return Padding(
@@ -87,25 +90,37 @@ class Home extends StatelessWidget {
                         ),
                         Expanded(
                           flex: 40,
-                          child: SingleChildScrollView(
-                            child: Container(
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: SearchBox(),
-                                  ),
-                                  SingleChildScrollView(
-                                    child: Padding(
+                          child: Stack(
+                            children: [
+                              Container(
+                                child: Column(
+                                  children: [
+                                    Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 20),
-                                      child: RenderBrands(),
+                                      child: SearchBox(),
                                     ),
-                                  ),
-                                ],
+                                    SingleChildScrollView(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: Container(
+                                          padding: EdgeInsets.only(top: 5.0),
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height -
+                                              205,
+                                          child: RenderBrands(),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
+                              provider.showVoiceWidget
+                                  ? voiceInputContainer(provider)
+                                  : Container(),
+                            ],
                           ),
                         ),
                         Expanded(

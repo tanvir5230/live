@@ -86,39 +86,27 @@ class MenuContainerRight extends StatelessWidget {
                         projectData: projectData,
                         projectSelectionFunc: value.selectProject,
                         bg: false,
-                        googleMap: false,
                         showPropertyFactSheet: false);
                   },
                 )
               : ListView.builder(
-                  itemCount: value.propertyNameList!.length + 2,
+                  itemCount: value.propertyNameList!.length + 1,
                   itemBuilder: (BuildContext context, index) {
                     return index == 0
                         ? projectButtonRight(
-                            buttonText: 'google map',
+                            buttonText: value.selectedProject,
+                            projectData: null,
+                            projectSelectionFunc: null,
+                            bg: true,
+                            showPropertyFactSheet: false,
+                          )
+                        : projectButtonRight(
+                            buttonText: value.propertyNameList![index - 1],
                             projectData: null,
                             projectSelectionFunc: null,
                             bg: false,
-                            googleMap: true,
-                            showPropertyFactSheet: false,
-                          )
-                        : index == 1
-                            ? projectButtonRight(
-                                buttonText: value.selectedProject,
-                                projectData: null,
-                                projectSelectionFunc: null,
-                                bg: true,
-                                googleMap: false,
-                                showPropertyFactSheet: false,
-                              )
-                            : projectButtonRight(
-                                buttonText: value.propertyNameList![index - 2],
-                                projectData: null,
-                                projectSelectionFunc: null,
-                                bg: false,
-                                googleMap: false,
-                                showPropertyFactSheet: true,
-                              );
+                            showPropertyFactSheet: true,
+                          );
                   },
                 ),
     );
@@ -130,7 +118,6 @@ Widget projectButtonRight(
     required projectSelectionFunc,
     required projectData,
     required bool bg,
-    required bool googleMap,
     required bool showPropertyFactSheet}) {
   return Consumer<CompanyInfoProvider>(
     builder: (context, provider, child) {
@@ -147,10 +134,12 @@ Widget projectButtonRight(
                 height: provider.heightOfInfoButton,
                 decoration: bg
                     ? BoxDecoration(
-                        gradient: LinearGradient(colors: [
-                          Colors.red.shade900,
-                          Colors.red.withOpacity(.1)
-                        ]),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.red.shade900,
+                            Colors.red.withOpacity(.1)
+                          ],
+                        ),
                       )
                     : null,
                 child: OutlineGradientButton(
@@ -163,43 +152,18 @@ Widget projectButtonRight(
                       provider.selectProperty(buttonText);
                     }
                   },
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(width: 10),
-                        googleMap
-                            ? Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/map.png',
-                                    width: 20,
-                                    height: 30,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    buttonText.toString().toUpperCase(),
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: provider.normalFontSize,
-                                    ),
-                                  ),
-                                ],
-                              )
-                            : Text(
-                                buttonText.toString().toUpperCase(),
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: provider.normalFontSize,
-                                ),
-                              ),
-                      ],
+                  child: Center(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Text(
+                        buttonText.toString().toUpperCase(),
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: provider.normalFontSize,
+                        ),
+                      ),
                     ),
                   ),
                   gradient: LinearGradient(
@@ -219,7 +183,7 @@ Widget projectButtonRight(
                 height: 10,
                 child: Icon(
                   Icons.circle,
-                  color: Colors.white,
+                  color: bg ? Colors.amber : Colors.white,
                   size: 10,
                 ),
               ),
