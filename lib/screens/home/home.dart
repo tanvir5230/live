@@ -164,8 +164,13 @@ Widget voiceInputContainer(HomepageProvider provider) {
     right: 0,
     child: Container(
       padding: const EdgeInsets.symmetric(vertical: 20.0),
-      // height: 300,
-      color: Colors.black87,
+      decoration: BoxDecoration(
+        color: Colors.black87,
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(20),
+          topLeft: Radius.circular(20),
+        ),
+      ),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
